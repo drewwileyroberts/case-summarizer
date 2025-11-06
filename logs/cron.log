@@ -1,0 +1,690 @@
+========================================
+[2025-10-28 23:20:48] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-28 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-28 23:20:49] Check completed
+
+========================================
+[2025-10-29 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:00:03] Check completed
+
+========================================
+[2025-10-29 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:02:03] Check completed
+
+========================================
+[2025-10-29 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:04:03] Check completed
+
+========================================
+[2025-10-29 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:06:02] Check completed
+
+========================================
+[2025-10-29 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:08:03] Check completed
+
+========================================
+[2025-10-29 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:10:02] Check completed
+
+========================================
+[2025-10-29 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:12:03] Check completed
+
+========================================
+[2025-10-29 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/29 before:2025/10/30
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/29
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/29 before:2025/10/30
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/29
+
+[ok] Processed 0 PDF(s)
+[2025-10-29 12:14:03] Check completed
+
+========================================
+[2025-10-30 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/30 before:2025/10/31
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/30
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/30 before:2025/10/31
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/30
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:00:03] Check completed
+
+========================================
+[2025-10-30 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/30 before:2025/10/31
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/30
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/30 before:2025/10/31
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/30
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:02:03] Check completed
+
+========================================
+[2025-10-30 12:04:01] Starting Federal Circuit check...
+========================================
+[2025-10-30 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-30 (3 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:06:02] Check completed
+
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/30 before:2025/10/31
+[info] Found 1 email(s)
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/30 before:2025/10/31
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/30
+
+[info] Processing email 1/1
+[info] Found 4 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/10-30-2025-25-1463-merck-serono-sa-v-twi-pharmaceuticals-inc-opinion-25-1463-opinion-10-30-2025_2596136/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1463.OPINION.10-30-2025_2596136.pdf
+[info] Case: 25-1463: MERCK SERONO S.A. v. TWI PHARMACEUTICALS, INC.
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1463.OPINION.10-30-2025_2596136.pdf
+[info] Extracting text from: 25-1463.OPINION.10-30-2025_2596136.pdf
+[info] Summarizing: 25-1463.OPINION.10-30-2025_2596136.pdf
+[ok] Wrote summary: summaries/2025-10-30/non-precedential/2025.10.30_2025-1463.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/10-29-2025-24-1325-dexcom-inc-v-squires-order-24-1325-order-10-29-2025_2595426/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1325.ORDER.10-29-2025_2595426.pdf
+[info] Case: 24-1325: DEXCOM, INC. v. SQUIRES
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1325.ORDER.10-29-2025_2595426.pdf
+[info] Extracting text from: 24-1325.ORDER.10-29-2025_2595426.pdf
+[info] Summarizing: 24-1325.ORDER.10-29-2025_2595426.pdf
+[ok] Wrote summary: summaries/2025-10-30/non-precedential/2025.10.29_2024-1325.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/10-29-2025-25-2042-frank-v-mspb-order-25-2042-order-10-29-2025_2595259/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2042.ORDER.10-29-2025_2595259.pdf
+[info] Case: 25-2042: FRANK v. MSPB
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2042.ORDER.10-29-2025_2595259.pdf
+[info] Extracting text from: 25-2042.ORDER.10-29-2025_2595259.pdf
+[info] Summarizing: 25-2042.ORDER.10-29-2025_2595259.pdf
+[ok] Wrote summary: summaries/2025-10-30/non-precedential/2025.10.29_2025-2042.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/10-30-2025-25-1210-merck-serono-sa-v-hopewell-pharma-ventures-inc-opinion-25-1210-opinion-10-30-2025_2596117/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1210.OPINION.10-30-2025_2596117.pdf
+[info] Case: 25-1210: MERCK SERONO S.A. v. HOPEWELL PHARMA VENTURES, INC.
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/25-1210.OPINION.10-30-2025_2596117.pdf
+[info] Extracting text from: 25-1210.OPINION.10-30-2025_2596117.pdf
+[info] Summarizing: 25-1210.OPINION.10-30-2025_2596117.pdf
+[ok] Wrote summary: summaries/2025-10-30/precedential/2025.10.30_25-1210.txt
+
+[info] Sending summary email to drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com...
+[ok] Summary email sent to: drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com
+
+[ok] Processed 4 PDF(s)
+[2025-10-30 12:06:10] Check completed
+
+========================================
+[2025-10-30 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-30 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:08:02] Check completed
+
+========================================
+[2025-10-30 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-30 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:10:02] Check completed
+
+========================================
+[2025-10-30 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-30 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:12:02] Check completed
+
+========================================
+[2025-10-30 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-30 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-30 12:14:02] Check completed
+
+========================================
+[2025-10-31 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/31 before:2025/11/01
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/10/31
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/31 before:2025/11/01
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/31
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:00:03] Check completed
+
+========================================
+[2025-10-31 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/10/31 before:2025/11/01
+[info] Found 1 email(s)
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/10/31 before:2025/11/01
+[info] No emails found from drewwileyroberts@gmail.com on 2025/10/31
+
+[info] Processing email 1/1
+[info] Found 1 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/10-31-2025-25-1348-courtney-v-mspb-opinion-25-1348-opinion-10-31-2025_2596833/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1348.OPINION.10-31-2025_2596833.pdf
+[info] Case: 25-1348: COURTNEY v. MSPB
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1348.OPINION.10-31-2025_2596833.pdf
+[info] Extracting text from: 25-1348.OPINION.10-31-2025_2596833.pdf
+[info] Summarizing: 25-1348.OPINION.10-31-2025_2596833.pdf
+[ok] Wrote summary: summaries/2025-10-31/non-precedential/2025.10.31_2025-1348.txt
+
+[info] Sending summary email to drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com...
+[ok] Summary email sent to: drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com
+
+[ok] Processed 1 PDF(s)
+[2025-10-31 12:02:11] Check completed
+
+========================================
+[2025-10-31 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-31 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:04:02] Check completed
+
+========================================
+[2025-10-31 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-31 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:06:02] Check completed
+
+========================================
+[2025-10-31 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-31 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:08:02] Check completed
+
+========================================
+[2025-10-31 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-31 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:10:02] Check completed
+
+========================================
+[2025-10-31 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-31 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:12:02] Check completed
+
+========================================
+[2025-10-31 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-10-31 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-10-31 12:14:02] Check completed
+
+========================================
+[2025-11-03 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/03 before:2025/11/04
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/03
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/03 before:2025/11/04
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/03
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:00:04] Check completed
+
+========================================
+[2025-11-03 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/03 before:2025/11/04
+[info] Found 1 email(s)
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/03 before:2025/11/04
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/03
+
+[info] Processing email 1/1
+[info] Found 1 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-03-2025-26-103-in-re-aylo-holdings-sa-rl-order-26-103-order-11-3-2025_2597246/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/26-103.ORDER.11-3-2025_2597246.pdf
+[info] Case: 26-103: In Re AYLO HOLDINGS S.A R.L.
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/26-103.ORDER.11-3-2025_2597246.pdf
+[info] Extracting text from: 26-103.ORDER.11-3-2025_2597246.pdf
+[info] Summarizing: 26-103.ORDER.11-3-2025_2597246.pdf
+[ok] Wrote summary: summaries/2025-11-03/non-precedential/2025.11.03_2026-103.txt
+
+[info] Sending summary email to drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com...
+[ok] Summary email sent to: drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com
+
+[ok] Processed 1 PDF(s)
+[2025-11-03 12:02:27] Check completed
+
+========================================
+[2025-11-03 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-03 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:04:02] Check completed
+
+========================================
+[2025-11-03 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-03 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:06:02] Check completed
+
+========================================
+[2025-11-03 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-03 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:08:02] Check completed
+
+========================================
+[2025-11-03 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-03 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:10:02] Check completed
+
+========================================
+[2025-11-03 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-03 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:12:02] Check completed
+
+========================================
+[2025-11-03 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-03 (1 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-03 12:14:02] Check completed
+
+========================================
+[2025-11-04 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/04 before:2025/11/05
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/04
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/04 before:2025/11/05
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/04
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:00:02] Check completed
+
+========================================
+[2025-11-04 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/04 before:2025/11/05
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/04
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/04 before:2025/11/05
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/04
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:02:03] Check completed
+
+========================================
+[2025-11-04 12:04:01] Starting Federal Circuit check...
+========================================
+[2025-11-04 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-04 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:06:02] Check completed
+
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/04 before:2025/11/05
+[info] Found 1 email(s)
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/04 before:2025/11/05
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/04
+
+[info] Processing email 1/1
+[info] Found 6 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-03-2025-24-1546-carattini-v-collins-order-24-1546-order-11-3-2025_2597607/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1546.ORDER.11-3-2025_2597607.pdf
+[info] Case: 24-1546: CARATTINI v. COLLINS
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1546.ORDER.11-3-2025_2597607.pdf
+[info] Extracting text from: 24-1546.ORDER.11-3-2025_2597607.pdf
+[info] Summarizing: 24-1546.ORDER.11-3-2025_2597607.pdf
+[ok] Wrote summary: summaries/2025-11-04/non-precedential/2025.11.03_2024-1546.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-24-2215-demery-v-mspb-opinion-24-2215-opinion-11-4-2025_2597967/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-2215.OPINION.11-4-2025_2597967.pdf
+[info] Case: 24-2215: DEMERY v. MSPB
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-2215.OPINION.11-4-2025_2597967.pdf
+[info] Extracting text from: 24-2215.OPINION.11-4-2025_2597967.pdf
+[info] Summarizing: 24-2215.OPINION.11-4-2025_2597967.pdf
+[ok] Wrote summary: summaries/2025-11-04/non-precedential/2025.11.04_2024-2215.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-24-1708-barrette-v-dva-opinion-24-1708-opinion-11-4-2025_2597866/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1708.OPINION.11-4-2025_2597866.pdf
+[info] Case: 24-1708: BARRETTE v. DVA
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1708.OPINION.11-4-2025_2597866.pdf
+[info] Extracting text from: 24-1708.OPINION.11-4-2025_2597866.pdf
+[info] Summarizing: 24-1708.OPINION.11-4-2025_2597866.pdf
+[ok] Wrote summary: summaries/2025-11-04/non-precedential/2025.11.04_2024-1708.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-24-1456-soto-v-dva-rule-36-judgment-24-1456-rule_36_judgment-11-4-2025_2597840/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1456.RULE_36_JUDGMENT.11-4-2025_2597840.pdf
+[info] Case: 24-1456: SOTO v. DVA [RULE 36 JUDGMENT]
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1456.RULE_36_JUDGMENT.11-4-2025_2597840.pdf
+[info] Extracting text from: 24-1456.RULE_36_JUDGMENT.11-4-2025_2597840.pdf
+[info] Summarizing: 24-1456.RULE_36_JUDGMENT.11-4-2025_2597840.pdf
+[ok] Wrote summary: summaries/2025-11-04/non-precedential/2025.11.04_2024-1456.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-23-2290-cases2tech-llc-v-squires-opinion-23-2290-opinion-11-4-2025_2597882/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/23-2290.OPINION.11-4-2025_2597882.pdf
+[info] Case: 23-2290: CASES2TECH, LLC v. SQUIRES
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/23-2290.OPINION.11-4-2025_2597882.pdf
+[info] Extracting text from: 23-2290.OPINION.11-4-2025_2597882.pdf
+[info] Summarizing: 23-2290.OPINION.11-4-2025_2597882.pdf
+[ok] Wrote summary: summaries/2025-11-04/non-precedential/2025.11.04_2023-2290.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-25-1157-demery-v-mspb-opinion-25-1157-opinion-11-4-2025_2597959/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1157.OPINION.11-4-2025_2597959.pdf
+[info] Case: 25-1157: DEMERY v. MSPB
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1157.OPINION.11-4-2025_2597959.pdf
+[info] Extracting text from: 25-1157.OPINION.11-4-2025_2597959.pdf
+[info] Summarizing: 25-1157.OPINION.11-4-2025_2597959.pdf
+[ok] Wrote summary: summaries/2025-11-04/non-precedential/2025.11.04_2025-1157.txt
+
+[info] Sending summary email to drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com...
+[ok] Summary email sent to: drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com
+
+[ok] Processed 6 PDF(s)
+[2025-11-04 12:06:05] Check completed
+
+========================================
+[2025-11-04 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-04 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:08:02] Check completed
+
+========================================
+[2025-11-04 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-04 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:10:02] Check completed
+
+========================================
+[2025-11-04 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-04 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:12:02] Check completed
+
+========================================
+[2025-11-04 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-04 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-04 12:14:02] Check completed
+
+========================================
+[2025-11-05 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/05 before:2025/11/06
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/05
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/05 before:2025/11/06
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/05
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:00:03] Check completed
+
+========================================
+[2025-11-05 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/05 before:2025/11/06
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/05
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/05 before:2025/11/06
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/05
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:02:02] Check completed
+
+========================================
+[2025-11-05 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/05 before:2025/11/06
+[info] Found 1 email(s)
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/05 before:2025/11/06
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/05
+
+[info] Processing email 1/1
+[info] Found 4 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-05-2025-25-1506-howard-v-defense-opinion-25-1506-opinion-11-5-2025_2598820/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1506.OPINION.11-5-2025_2598820.pdf
+[info] Case: 25-1506: HOWARD v. DEFENSE
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1506.OPINION.11-5-2025_2598820.pdf
+[info] Extracting text from: 25-1506.OPINION.11-5-2025_2598820.pdf
+[info] Summarizing: 25-1506.OPINION.11-5-2025_2598820.pdf
+[ok] Wrote summary: summaries/2025-11-05/non-precedential/2025.11.05_2025-1506.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-25-1861-crusoe-energy-systems-llc-v-upstream-data-inc-order-25-1861-order-11-4-2025_2598144/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1861.ORDER.11-4-2025_2598144.pdf
+[info] Case: 25-1861: CRUSOE ENERGY SYSTEMS, LLC v. UPSTREAM DATA INC.
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1861.ORDER.11-4-2025_2598144.pdf
+[info] Extracting text from: 25-1861.ORDER.11-4-2025_2598144.pdf
+[info] Summarizing: 25-1861.ORDER.11-4-2025_2598144.pdf
+[ok] Wrote summary: summaries/2025-11-05/non-precedential/2025.11.04_2025-1861.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-04-2025-24-1071-in-re-federal-bar-foundation-order-24-1071-order-11-4-2025_2598245/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1071.ORDER.11-4-2025_2598245.pdf
+[info] Case: 24-1071: In Re FEDERAL BAR FOUNDATION
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1071.ORDER.11-4-2025_2598245.pdf
+[info] Extracting text from: 24-1071.ORDER.11-4-2025_2598245.pdf
+[info] Summarizing: 24-1071.ORDER.11-4-2025_2598245.pdf
+[ok] Wrote summary: summaries/2025-11-05/non-precedential/2025.11.04_2024-1071.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-05-2025-25-1750-rodriguez-v-us-opinion-25-1750-opinion-11-5-2025_2598828/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1750.OPINION.11-5-2025_2598828.pdf
+[info] Case: 25-1750: RODRIGUEZ v. US
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1750.OPINION.11-5-2025_2598828.pdf
+[info] Extracting text from: 25-1750.OPINION.11-5-2025_2598828.pdf
+[info] Summarizing: 25-1750.OPINION.11-5-2025_2598828.pdf
+[ok] Wrote summary: summaries/2025-11-05/non-precedential/2025.11.05_2025-1750.txt
+
+[info] Sending summary email to drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com...
+[ok] Summary email sent to: drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com
+
+[ok] Processed 4 PDF(s)
+[2025-11-05 12:04:41] Check completed
+
+========================================
+[2025-11-05 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-05 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:06:02] Check completed
+
+========================================
+[2025-11-05 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-05 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:08:02] Check completed
+
+========================================
+[2025-11-05 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-05 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:10:02] Check completed
+
+========================================
+[2025-11-05 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-05 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:12:02] Check completed
+
+========================================
+[2025-11-05 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-05 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-05 12:14:02] Check completed
+

@@ -1,0 +1,14 @@
+[project]
+name = "case-summarizer"
+version = "0.1.0"
+description = "Simple PDF summarizer via OpenAI"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.45.0",
+    "pypdf>=4.3.1",
+]
+
+[project.scripts]
+case-summarize = "summarizer.cli:main"
+
+
