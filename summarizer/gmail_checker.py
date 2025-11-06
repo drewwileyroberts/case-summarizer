@@ -200,6 +200,17 @@ class CaseSummary:
     opinion_date: str | None
     case_number: str | None
     pdf_url: str | None = None
+    # Structured fields from new decision tree approach
+    is_patent_case: bool = False
+    panel_judges: List[str] = None
+    author_judge: str | None = None
+    case_summary: str | None = None
+    major_holdings: str | None = None
+    
+    def __post_init__(self):
+        # Initialize panel_judges to empty list if None
+        if self.panel_judges is None:
+            self.panel_judges = []
 
 
 def _markdown_to_html(text: str) -> str:
@@ -222,6 +233,34 @@ def _markdown_to_html(text: str) -> str:
     return text
 
 
+def _format_judges_html(panel_judges: List[str], author_judge: str | None) -> str:
+    """Format the judge panel with author underlined.
+    
+    Args:
+        panel_judges: List of judge names
+        author_judge: Name of the authoring judge (to be underlined)
+        
+    Returns:
+        HTML string with judges formatted, author underlined
+    """
+    if not panel_judges:
+        return ""
+    
+    # Handle special cases
+    if panel_judges == ["Per Curiam"] or panel_judges == ["Unsigned"]:
+        return panel_judges[0]
+    
+    # Format judges with author underlined
+    formatted_judges = []
+    for judge in panel_judges:
+        if author_judge and judge == author_judge:
+            formatted_judges.append(f"<u>{judge}</u>")
+        else:
+            formatted_judges.append(judge)
+    
+    return ", ".join(formatted_judges)
+
+
 def send_summary_email(
     service,
     to_email: str | List[str],
@@ -229,7 +268,13 @@ def send_summary_email(
     email_date: date,
 ) -> bool:
     """
-    Send an email with all case summaries.
+    Send an email with all case summaries in structured format.
+    
+    Structure:
+    - Patent Cases
+      - Precedential (with full details: judges, summary, holdings)
+      - Non-Precedential (with full details: judges, summary, holdings)
+    - Non-Patent Cases (just case cite with link)
     
     Args:
         service: Authenticated Gmail API service
@@ -247,9 +292,10 @@ def send_summary_email(
     # Normalize to_email to a list
     to_emails = [to_email] if isinstance(to_email, str) else to_email
     
-    # Sort: precedential first, then non-precedential
-    precedential = [s for s in summaries if s.is_precedential]
-    non_precedential = [s for s in summaries if not s.is_precedential]
+    # Categorize cases
+    patent_precedential = [s for s in summaries if s.is_patent_case and s.is_precedential]
+    patent_non_precedential = [s for s in summaries if s.is_patent_case and not s.is_precedential]
+    non_patent = [s for s in summaries if not s.is_patent_case]
     
     # Build HTML email body with inline styles (Outlook-friendly)
     date_str = email_date.strftime("%B %d, %Y")
@@ -258,46 +304,103 @@ def send_summary_email(
 <html>
 <body style="font-family: Arial, sans-serif; font-size: 14px; color: #333; max-width: 800px;">
     <h1 style="color: #1a1a1a; border-bottom: 3px solid #0066cc; padding-bottom: 10px;">{date_str} Federal Circuit Opinions</h1>
+    <p style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 15px 0; font-size: 12px; color: #856404;">
+        <strong>Note:</strong> The below summaries have been generated using AI, and have not been checked by an attorney. Read and analyze cases before relying upon them. Do not rely on the AI summary.
+    </p>
 """
     
-    # Add precedential opinions
-    if precedential:
-        html_body += f"""
-    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #ccc; padding-bottom: 5px;">PRECEDENTIAL OPINIONS ({len(precedential)})</h2>
+    # Patent Cases Section
+    if patent_precedential or patent_non_precedential:
+        html_body += """
+    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">PATENT CASES</h2>
 """
-        for summary in precedential:
+        
+        # Precedential Patent Cases
+        if patent_precedential:
+            html_body += f"""
+    <h3 style="color: #006600; margin-top: 20px; margin-left: 15px;">Precedential ({len(patent_precedential)})</h3>
+"""
+            for summary in patent_precedential:
+                case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
+                # Make case name a clickable link if PDF URL is available
+                if summary.pdf_url:
+                    case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
+                else:
+                    case_link = case_name
+                
+                # Format judges with author underlined
+                judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
+                judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
+                
+                # Use structured summary if available, fallback to summary_text
+                summary_content = summary.case_summary if summary.case_summary else summary.summary_text
+                summary_html = _markdown_to_html(summary_content)
+                
+                # Format holdings
+                holdings_html = ""
+                if summary.major_holdings:
+                    holdings_html = f"<p style=\"margin: 10px 0 5px 0;\"><strong>Major Holdings:</strong></p><div style=\"line-height: 1.6; margin-left: 15px;\">{_markdown_to_html(summary.major_holdings)}</div>"
+                
+                html_body += f"""
+    <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0 15px 20px; border-left: 4px solid #006600;">
+        <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link}</p>
+        {judges_line}
+        <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
+        <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
+        {holdings_html}
+    </div>
+"""
+        
+        # Non-Precedential Patent Cases
+        if patent_non_precedential:
+            html_body += f"""
+    <h3 style="color: #666; margin-top: 20px; margin-left: 15px;">Non-Precedential ({len(patent_non_precedential)})</h3>
+"""
+            for summary in patent_non_precedential:
+                case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
+                # Make case name a clickable link if PDF URL is available
+                if summary.pdf_url:
+                    case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
+                else:
+                    case_link = case_name
+                
+                # Format judges with author underlined
+                judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
+                judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
+                
+                # Use structured summary if available, fallback to summary_text
+                summary_content = summary.case_summary if summary.case_summary else summary.summary_text
+                summary_html = _markdown_to_html(summary_content)
+                
+                # Format holdings
+                holdings_html = ""
+                if summary.major_holdings:
+                    holdings_html = f"<p style=\"margin: 10px 0 5px 0;\"><strong>Major Holdings:</strong></p><div style=\"line-height: 1.6; margin-left: 15px;\">{_markdown_to_html(summary.major_holdings)}</div>"
+                
+                html_body += f"""
+    <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0 15px 20px; border-left: 4px solid #999;">
+        <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link}</p>
+        {judges_line}
+        <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
+        <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
+        {holdings_html}
+    </div>
+"""
+    
+    # Non-Patent Cases Section
+    if non_patent:
+        html_body += f"""
+    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">NON-PATENT CASES ({len(non_patent)})</h2>
+"""
+        for summary in non_patent:
             case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
-            summary_html = _markdown_to_html(summary.summary_text)
             # Make case name a clickable link if PDF URL is available
             if summary.pdf_url:
                 case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
             else:
                 case_link = case_name
             html_body += f"""
-    <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; border-left: 4px solid #0066cc;">
-        <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link} <span style="color: #006600;">(Precedential)</span></p>
-        <div style="line-height: 1.6;">{summary_html}</div>
-    </div>
-"""
-    
-    # Add non-precedential opinions
-    if non_precedential:
-        html_body += f"""
-    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #ccc; padding-bottom: 5px;">NON-PRECEDENTIAL OPINIONS ({len(non_precedential)})</h2>
-"""
-        for summary in non_precedential:
-            case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
-            summary_html = _markdown_to_html(summary.summary_text)
-            # Make case name a clickable link if PDF URL is available
-            if summary.pdf_url:
-                case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
-            else:
-                case_link = case_name
-            html_body += f"""
-    <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; border-left: 4px solid #999;">
-        <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link} <span style="color: #666;">(Non-Precedential)</span></p>
-        <div style="line-height: 1.6;">{summary_html}</div>
-    </div>
+    <p style="margin: 10px 0 10px 20px;">{case_link}</p>
 """
     
     html_body += """
@@ -460,6 +563,12 @@ def process_court_emails(
                     opinion_date=result.opinion_date,
                     case_number=result.case_number,
                     pdf_url=pdf_url,
+                    # Add structured fields
+                    is_patent_case=result.is_patent_case,
+                    panel_judges=result.panel_judges,
+                    author_judge=result.author_judge,
+                    case_summary=result.case_summary,
+                    major_holdings=result.major_holdings,
                 ))
     
     # Send summary email if email_to is provided
