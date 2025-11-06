@@ -73,23 +73,30 @@ Options:
 - `--pdf FILE [FILE ...]` - One or more PDF files to summarize
 - `--prompt-file FILE` - Custom prompt file
 - `--prompt TEXT` - Inline prompt (overrides file)
-- `--model MODEL` - OpenAI model (default: `gpt-4o-mini`)
+- `--model MODEL` - OpenAI model (default: `gpt-4o`)
 - `--output-dir DIR` - Output directory (default: `summaries/`)
 
 ### Features
 
-- **Automatic Metadata Extraction**: Extracts opinion date, case number, and case names from PDFs and landing pages
+- **Automatic Metadata Extraction**: Extracts opinion date, case number, and case names directly from landing pages (no GPT calls needed)
+- **Structured Information Extraction**: Automatically extracts:
+  - Patent case status
+  - Precedential/non-precedential status
+  - Panel judges and authoring judge
+  - 4-5 sentence case summary
+  - Major legal holdings
 - **Smart Filename Generation**: Saves summaries as `YYYY.MM.DD_CASE-NUMBER.txt`
 - **Precedential Organization**: Automatically detects and organizes opinions into `precedential/` and `non-precedential/` folders
 - **Email Summaries**: Sends formatted email digest with all opinions (precedential first)
 - **Gmail Integration**: Monitors email for new court opinions and sends summaries via Gmail API
-- **Web Scraping**: Automatically downloads PDFs from uscourts.gov landing pages
-- **Chunked Processing**: Handles large PDFs by processing in chunks
+- **Web Scraping**: Automatically downloads PDFs from uscourts.gov landing pages and extracts metadata
+- **Efficient Processing**: Processes full documents in single API calls for speed
 - **Customizable Prompts**: Use your own summarization prompts
 
 ### Notes
-- Default model is `gpt-4o-mini`. You can change it with `--model`.
-- Large PDFs are chunked automatically; a final pass combines chunk summaries.
+- Default model is `gpt-4o` for optimal balance of speed and legal accuracy.
+- The system processes full documents in single API calls (no chunking) for faster results.
+- Metadata (date, case number) is scraped from landing pages to minimize API calls.
 - The Gmail integration uses OAuth 2.0 with readonly scope for checking emails and send scope for sending summaries.
 - If you change the Gmail API scopes, delete `token.json` to re-authenticate with new permissions.
 
