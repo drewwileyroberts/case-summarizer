@@ -515,7 +515,7 @@ def process_court_emails(
         # Process each link
         for link in links:
             # Download PDF from landing page and get metadata
-            pdf_path, is_precedential, case_name, pdf_url = process_uscourts_link(link, pdf_dir)
+            pdf_path, is_precedential, case_name, pdf_url, opinion_date, case_number = process_uscourts_link(link, pdf_dir)
             
             if not pdf_path:
                 continue
@@ -530,7 +530,7 @@ def process_court_emails(
             
             # Summarize
             print(f"[info] Summarizing: {pdf_path.name}")
-            result = summarize_text(text, prompt_file=prompt_file)
+            result = summarize_text(text, prompt_file=prompt_file, opinion_date=opinion_date, case_number=case_number)
             
             # Generate output filename
             if result.opinion_date and result.case_number:

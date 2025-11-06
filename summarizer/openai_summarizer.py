@@ -8,7 +8,7 @@ from typing import Iterable, List, Optional
 from openai import OpenAI
 
 
-DEFAULT_MODEL = "gpt-4o-mini" 
+DEFAULT_MODEL = "gpt-4o"
 DEFAULT_MAX_CHARS_PER_CHUNK = 9000
 
 
@@ -20,7 +20,6 @@ class SummarizationResult:
     case_number: Optional[str] = None
     # Structured fields from decision tree
     is_patent_case: bool = False
-    is_precedential: bool = False
     panel_judges: List[str] = None  # List of judge names or ["Per Curiam"] or ["Unsigned"]
     author_judge: Optional[str] = None  # The judge who authored the opinion
     case_summary: Optional[str] = None  # 4-5 sentence summary
@@ -115,17 +114,16 @@ If you cannot find either field, use "UNKNOWN" for that field."""
 def _extract_structured_info(client: OpenAI, model: str, text: str) -> dict:
     """Extract structured case information using JSON format.
     
-    Asks the 6 key questions in the decision tree:
+    Asks the key questions in the decision tree:
     1. Is this a patent related case?
-    2. Is the case precedential?
-    3. Which judges were on the panel?
-    4. Which judge authored the opinion?
-    5. What is a 4-5 sentence summary?
-    6. What are the major holdings?
+    2. Which judges were on the panel?
+    3. Which judge authored the opinion?
+    4. What is a 4-5 sentence summary?
+    5. What are the major holdings?
     
     Returns:
-        dict with keys: is_patent_case, is_precedential, panel_judges, 
-        author_judge, case_summary, major_holdings
+        dict with keys: is_patent_case, panel_judges, author_judge,
+        case_summary, major_holdings
     """
     # Use a larger sample for better context (up to 15000 chars)
     sample = text[:15000]
@@ -134,20 +132,18 @@ def _extract_structured_info(client: OpenAI, model: str, text: str) -> dict:
 
 Questions:
 1. Is this a patent-related case? (true/false)
-2. Is this case precedential? (true/false) - Precedential cases are published opinions that establish binding precedent. Look for indicators like "PRECEDENTIAL", "FOR PUBLICATION", or formal opinion markers. Non-precedential cases may be marked "NON-PRECEDENTIAL", "NOT FOR PUBLICATION", "Rule 36", or similar.
-3. Which judges were on the panel? Return as an array of judge last names. If it's Per Curiam, return ["Per Curiam"]. If unsigned, return ["Unsigned"].
-4. Which judge authored the opinion? Return the last name of the authoring judge, or "Per Curiam" or "Unsigned" if applicable. Return null if you cannot determine.
-5. Provide a 4-5 sentence summary of the case. Focus on the key facts, legal issues, and outcome.
-6. What are the major holdings or rules from this case? Provide 1-4 (only the amount needed) concise bullet points highlighting only the most important legal principles. Be brief and to the point. Format as: "1:\n 2:\n 3:"
+2. Which judges were on the panel? Return as an array of judge last names. If it's Per Curiam, return ["Per Curiam"]. If unsigned, return ["Unsigned"].
+3. Which judge authored the opinion? Return the last name of the authoring judge, or "Per Curiam" or "Unsigned" if applicable. Return null if you cannot determine.
+4. Provide a 4-5 sentence summary of the case. Focus on the key facts, legal issues, and outcome.
+5. What are the major holdings or rules from this case? Provide 1 to 4 (only the amount needed) concise bullet points highlighting only the most important legal principles. Be brief and to the point. Format each holding on a new line like: "1. [holding text]\\n2. [holding text]\\n3. [holding text]"
 
 Return ONLY valid JSON in this exact format (no additional text):
 {
   "is_patent_case": true or false,
-  "is_precedential": true or false,
   "panel_judges": ["Judge1", "Judge2", "Judge3"],
   "author_judge": "Judge1" or null,
   "case_summary": "4-5 sentence summary here",
-  "major_holdings": "Major holdings here"
+  "major_holdings": "1. [holding text]\\n2. [holding text]\\n3. [holding text]"
 }"""
     
     response = _call_model(client, model, structured_prompt, sample)
@@ -167,7 +163,6 @@ Return ONLY valid JSON in this exact format (no additional text):
         # Validate and provide defaults
         return {
             'is_patent_case': bool(data.get('is_patent_case', False)),
-            'is_precedential': bool(data.get('is_precedential', False)),
             'panel_judges': data.get('panel_judges', []),
             'author_judge': data.get('author_judge'),
             'case_summary': data.get('case_summary', ''),
@@ -179,7 +174,6 @@ Return ONLY valid JSON in this exact format (no additional text):
         # Return default values
         return {
             'is_patent_case': False,
-            'is_precedential': False,
             'panel_judges': [],
             'author_judge': None,
             'case_summary': '',
@@ -194,6 +188,8 @@ def summarize_text(
     prompt_file: Optional[str] = None,
     model: str = DEFAULT_MODEL,
     max_chars_per_chunk: int = DEFAULT_MAX_CHARS_PER_CHUNK,
+    opinion_date: Optional[str] = None,
+    case_number: Optional[str] = None,
 ) -> SummarizationResult:
     client = _create_client()
     
@@ -201,8 +197,18 @@ def summarize_text(
     if not chunks:
         return SummarizationResult(combined_summary="", chunk_summaries=[])
 
-    # Extract metadata and structured info first
-    opinion_date, case_number = _extract_metadata(client, model, text)
+    # Extract metadata only if not provided
+    if opinion_date is None or case_number is None:
+        print("[info] Extracting metadata from PDF text using GPT...")
+        extracted_date, extracted_number = _extract_metadata(client, model, text)
+        if opinion_date is None:
+            opinion_date = extracted_date
+        if case_number is None:
+            case_number = extracted_number
+    else:
+        print(f"[info] Using scraped metadata: date={opinion_date}, case={case_number}")
+    
+    # Extract structured info
     structured_info = _extract_structured_info(client, model, text)
 
     # For backward compatibility, still generate the old-style combined summary
@@ -227,7 +233,6 @@ def summarize_text(
         opinion_date=opinion_date,
         case_number=case_number,
         is_patent_case=structured_info['is_patent_case'],
-        is_precedential=structured_info['is_precedential'],
         panel_judges=structured_info['panel_judges'],
         author_judge=structured_info['author_judge'],
         case_summary=structured_info['case_summary'],

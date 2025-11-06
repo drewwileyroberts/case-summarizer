@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from datetime import datetime
 from pathlib import Path
 from typing import List, Tuple
 from urllib.parse import urljoin, urlparse, unquote
@@ -9,25 +10,27 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def extract_metadata_from_landing_page(landing_url: str) -> Tuple[str | None, bool, str | None]:
+def extract_metadata_from_landing_page(landing_url: str) -> Tuple[str | None, bool, str | None, str | None, str | None]:
     """
-    Extracts the PDF URL, precedential status, and case name from a uscourts.gov landing page.
+    Extracts the PDF URL, precedential status, case name, opinion date, and case number from a uscourts.gov landing page.
     
     Args:
         landing_url: URL of the landing page (e.g., the link from the email)
         
     Returns:
-        Tuple of (pdf_url, is_precedential, case_name) where:
+        Tuple of (pdf_url, is_precedential, case_name, opinion_date, case_number) where:
         - pdf_url: Direct PDF URL, or None if not found
         - is_precedential: True if precedential, False otherwise
         - case_name: Case name from the page title, or None if not found
+        - opinion_date: Opinion date in YYYY-MM-DD format, or None if not found
+        - case_number: Case/appeal number, or None if not found
     """
     try:
         response = requests.get(landing_url, timeout=30)
         response.raise_for_status()
     except requests.RequestException as e:
         print(f"[error] Failed to fetch landing page {landing_url}: {e}")
-        return None, False, None
+        return None, False, None, None, None
     
     soup = BeautifulSoup(response.content, "html.parser")
     
@@ -58,10 +61,17 @@ def extract_metadata_from_landing_page(landing_url: str) -> Tuple[str | None, bo
     
     # Extract case name from the page heading (h1)
     case_name = None
+    case_number = None
     h1 = soup.find("h1")
     if h1:
         # Example: "23-1446: FOCUS PRODUCTS GROUP INTERNATIONAL, LLC v. KARTRI SALES CO., INC. [OPINION], Precedential"
         case_text = h1.get_text().strip()
+        
+        # Extract case number from the beginning (e.g., "23-1446:")
+        case_num_match = re.match(r'^(\d{2,}-\d+):', case_text)
+        if case_num_match:
+            case_number = case_num_match.group(1)
+        
         # Remove the precedential/non-precedential suffix
         case_name = re.sub(r',?\s*(Precedential|Non-Precedential|Nonprecedential)\s*$', '', case_text, flags=re.IGNORECASE)
         # Clean up extra whitespace and remove "[OPINION]" or similar tags
@@ -77,7 +87,58 @@ def extract_metadata_from_landing_page(landing_url: str) -> Tuple[str | None, bo
         if "Non-Precedential" not in page_text and "Nonprecedential" not in page_text:
             is_precedential = True
     
-    return pdf_url, is_precedential, case_name
+    # Extract opinion date
+    opinion_date = None
+    
+    # Try to find "Appeal Number: XXX" pattern in page text (fallback for case number)
+    if not case_number:
+        appeal_num_match = re.search(r'Appeal Number:\s*(\d{2,}-\d+)', page_text)
+        if appeal_num_match:
+            case_number = appeal_num_match.group(1)
+    
+    # Look for date in various formats on the page
+    # First try the URL itself (e.g., /11-05-2025-25-1750-...)
+    url_date_match = re.search(r'/(\d{1,2})-(\d{1,2})-(\d{4})-', landing_url)
+    if url_date_match:
+        month, day, year = url_date_match.groups()
+        try:
+            opinion_date = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+        except ValueError:
+            pass
+    
+    # If not in URL, try to find date text like "November 5, 2025" or similar
+    if not opinion_date:
+        # Look for common date patterns
+        date_patterns = [
+            r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})',
+            r'(\d{1,2})/(\d{1,2})/(\d{4})',
+            r'(\d{4})-(\d{1,2})-(\d{1,2})',
+        ]
+        
+        for pattern in date_patterns:
+            date_match = re.search(pattern, page_text)
+            if date_match:
+                try:
+                    if pattern.startswith(r'(January'):
+                        # Month name format
+                        month_name, day, year = date_match.groups()
+                        date_obj = datetime.strptime(f"{month_name} {day} {year}", "%B %d %Y")
+                        opinion_date = date_obj.strftime("%Y-%m-%d")
+                        break
+                    elif '/' in pattern:
+                        # MM/DD/YYYY format
+                        month, day, year = date_match.groups()
+                        opinion_date = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+                        break
+                    else:
+                        # YYYY-MM-DD format
+                        year, month, day = date_match.groups()
+                        opinion_date = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+                        break
+                except (ValueError, AttributeError):
+                    continue
+    
+    return pdf_url, is_precedential, case_name, opinion_date, case_number
 
 
 def extract_pdf_url_from_landing_page(landing_url: str) -> str | None:
@@ -92,7 +153,7 @@ def extract_pdf_url_from_landing_page(landing_url: str) -> str | None:
     Returns:
         The direct PDF URL, or None if not found
     """
-    pdf_url, _, _ = extract_metadata_from_landing_page(landing_url)
+    pdf_url, _, _, _, _ = extract_metadata_from_landing_page(landing_url)
     return pdf_url
 
 
@@ -129,7 +190,7 @@ def download_pdf(pdf_url: str, output_dir: Path) -> Path | None:
     return output_path
 
 
-def process_uscourts_link(landing_url: str, output_dir: Path) -> Tuple[Path | None, bool, str | None, str | None]:
+def process_uscourts_link(landing_url: str, output_dir: Path) -> Tuple[Path | None, bool, str | None, str | None, str | None, str | None]:
     """
     Complete workflow: extract PDF URL from landing page and download it.
     
@@ -138,24 +199,28 @@ def process_uscourts_link(landing_url: str, output_dir: Path) -> Tuple[Path | No
         output_dir: Directory to save the downloaded PDF
         
     Returns:
-        Tuple of (pdf_path, is_precedential, case_name, pdf_url) where:
+        Tuple of (pdf_path, is_precedential, case_name, pdf_url, opinion_date, case_number) where:
         - pdf_path: Path to the downloaded PDF file, or None if failed
         - is_precedential: True if precedential, False otherwise
         - case_name: Case name from the landing page, or None if not found
         - pdf_url: Direct URL to the PDF file, or None if not found
+        - opinion_date: Opinion date in YYYY-MM-DD format, or None if not found
+        - case_number: Case/appeal number, or None if not found
     """
     print(f"[info] Processing uscourts link: {landing_url}")
     
-    pdf_url, is_precedential, case_name = extract_metadata_from_landing_page(landing_url)
+    pdf_url, is_precedential, case_name, opinion_date, case_number = extract_metadata_from_landing_page(landing_url)
     if not pdf_url:
-        return None, False, None, None
+        return None, False, None, None, None, None
     
     print(f"[info] Found PDF URL: {pdf_url}")
     print(f"[info] Case: {case_name}")
+    print(f"[info] Case Number: {case_number}")
+    print(f"[info] Opinion Date: {opinion_date}")
     print(f"[info] Precedential: {'Yes' if is_precedential else 'No'}")
     
     pdf_path = download_pdf(pdf_url, output_dir)
-    return pdf_path, is_precedential, case_name, pdf_url
+    return pdf_path, is_precedential, case_name, pdf_url, opinion_date, case_number
 
 
 def extract_links_from_text(text: str) -> List[str]:
