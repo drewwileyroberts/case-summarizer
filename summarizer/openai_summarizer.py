@@ -9,13 +9,11 @@ from openai import OpenAI
 
 
 DEFAULT_MODEL = "gpt-4o"
-DEFAULT_MAX_CHARS_PER_CHUNK = 9000
 
 
 @dataclass
 class SummarizationResult:
     combined_summary: str
-    chunk_summaries: List[str]
     opinion_date: Optional[str] = None  # Format: YYYY-MM-DD
     case_number: Optional[str] = None
     # Structured fields from decision tree
@@ -29,13 +27,6 @@ class SummarizationResult:
         # Initialize panel_judges to empty list if None
         if self.panel_judges is None:
             self.panel_judges = []
-
-
-def _chunk_text(text: str, max_chars: int) -> List[str]:
-    if not text:
-        return []
-    # naive chunking by characters to keep implementation simple
-    return [text[i : i + max_chars] for i in range(0, len(text), max_chars)]
 
 
 def _load_prompt(prompt: Optional[str], prompt_file: Optional[str]) -> str:
@@ -187,15 +178,13 @@ def summarize_text(
     prompt: Optional[str] = None,
     prompt_file: Optional[str] = None,
     model: str = DEFAULT_MODEL,
-    max_chars_per_chunk: int = DEFAULT_MAX_CHARS_PER_CHUNK,
     opinion_date: Optional[str] = None,
     case_number: Optional[str] = None,
 ) -> SummarizationResult:
     client = _create_client()
     
-    chunks = _chunk_text(text, max_chars_per_chunk)
-    if not chunks:
-        return SummarizationResult(combined_summary="", chunk_summaries=[])
+    if not text.strip():
+        return SummarizationResult(combined_summary="")
 
     # Extract metadata only if not provided
     if opinion_date is None or case_number is None:
@@ -211,25 +200,12 @@ def summarize_text(
     # Extract structured info
     structured_info = _extract_structured_info(client, model, text)
 
-    # For backward compatibility, still generate the old-style combined summary
-    # This is used by the CLI tool for text file output
+    # Generate summary from full text in one call
     system_prompt = _load_prompt(prompt, prompt_file)
-    chunk_summaries: List[str] = []
-    for chunk in chunks:
-        chunk_summary = _call_model(client, model, system_prompt, chunk)
-        chunk_summaries.append(chunk_summary.strip())
-
-    # final combine pass
-    combined_prompt = (
-        system_prompt
-        + "\n\nYou will now receive multiple partial summaries. Combine them into a single, concise summary without repeating yourself."
-    )
-    combined_input = "\n\n".join(f"Part {i+1}:\n{cs}" for i, cs in enumerate(chunk_summaries))
-    combined_summary = _call_model(client, model, combined_prompt, combined_input).strip()
+    combined_summary = _call_model(client, model, system_prompt, text).strip()
 
     return SummarizationResult(
         combined_summary=combined_summary,
-        chunk_summaries=chunk_summaries,
         opinion_date=opinion_date,
         case_number=case_number,
         is_patent_case=structured_info['is_patent_case'],
