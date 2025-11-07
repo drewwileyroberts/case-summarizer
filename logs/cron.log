@@ -688,3 +688,181 @@
 [ok] Processed 0 PDF(s)
 [2025-11-05 12:14:02] Check completed
 
+========================================
+[2025-11-06 12:00:02] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/06 before:2025/11/07
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/06
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/06 before:2025/11/07
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/06
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:00:03] Check completed
+
+========================================
+[2025-11-06 12:02:01] Starting Federal Circuit check...
+========================================
+[2025-11-06 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-06 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:04:02] Check completed
+
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/06 before:2025/11/07
+[info] Found 1 email(s)
+[info] Searching Gmail for: from:drewwileyroberts@gmail.com after:2025/11/06 before:2025/11/07
+[info] No emails found from drewwileyroberts@gmail.com on 2025/11/06
+
+[info] Processing email 1/1
+[info] Found 8 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-24-2139-woodroof-v-commerce-opinion-24-2139-opinion-11-6-2025_2599431/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-2139.OPINION.11-6-2025_2599431.pdf
+[info] Case: 24-2139: WOODROOF v. COMMERCE
+[info] Case Number: 24-2139
+[info] Opinion Date: 2025-11-06
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-2139.OPINION.11-6-2025_2599431.pdf
+[info] Extracting text from: 24-2139.OPINION.11-6-2025_2599431.pdf
+[info] Summarizing: 24-2139.OPINION.11-6-2025_2599431.pdf
+[info] Using scraped metadata: date=2025-11-06, case=24-2139
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.06_24-2139.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-25-132-in-re-sap-america-inc-order-25-132-order-11-6-2025_2599495/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-132.ORDER.11-6-2025_2599495.pdf
+[info] Case: 25-132: In Re SAP AMERICA, INC.
+[info] Case Number: 25-132
+[info] Opinion Date: 2025-11-06
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-132.ORDER.11-6-2025_2599495.pdf
+[info] Extracting text from: 25-132.ORDER.11-6-2025_2599495.pdf
+[info] Summarizing: 25-132.ORDER.11-6-2025_2599495.pdf
+[info] Using scraped metadata: date=2025-11-06, case=25-132
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.06_25-132.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-25-1128-boyd-v-treasury-opinion-25-1128-opinion-11-6-2025_2599469/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1128.OPINION.11-6-2025_2599469.pdf
+[info] Case: 25-1128: BOYD v. TREASURY
+[info] Case Number: 25-1128
+[info] Opinion Date: 2025-11-06
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1128.OPINION.11-6-2025_2599469.pdf
+[info] Extracting text from: 25-1128.OPINION.11-6-2025_2599469.pdf
+[info] Summarizing: 25-1128.OPINION.11-6-2025_2599469.pdf
+[info] Using scraped metadata: date=2025-11-06, case=25-1128
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.06_25-1128.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-25-144-in-re-google-llc-order-25-144-order-11-6-2025_2599508/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-144.ORDER.11-6-2025_2599508.pdf
+[info] Case: 25-144: In Re GOOGLE LLC
+[info] Case Number: 25-144
+[info] Opinion Date: 2025-11-06
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-144.ORDER.11-6-2025_2599508.pdf
+[info] Extracting text from: 25-144.ORDER.11-6-2025_2599508.pdf
+[info] Summarizing: 25-144.ORDER.11-6-2025_2599508.pdf
+[info] Using scraped metadata: date=2025-11-06, case=25-144
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.06_25-144.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-25-134-in-re-motorola-solutions-inc-order-25-134-order-11-6-2025_2599490/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-134.ORDER.11-6-2025_2599490.pdf
+[info] Case: 25-134: In Re MOTOROLA SOLUTIONS, INC.
+[info] Case Number: 25-134
+[info] Opinion Date: 2025-11-06
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/25-134.ORDER.11-6-2025_2599490.pdf
+[info] Extracting text from: 25-134.ORDER.11-6-2025_2599490.pdf
+[info] Summarizing: 25-134.ORDER.11-6-2025_2599490.pdf
+[info] Using scraped metadata: date=2025-11-06, case=25-134
+[ok] Wrote summary: summaries/2025-11-06/precedential/2025.11.06_25-134.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-25-1157-demery-v-mspb-errata-25-1157-errata-11-6-2025_2599454/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1157.ERRATA.11-6-2025_2599454.pdf
+[info] Case: 25-1157: DEMERY v. MSPB [ERRATA]
+[info] Case Number: 25-1157
+[info] Opinion Date: 2025-11-06
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1157.ERRATA.11-6-2025_2599454.pdf
+[info] Extracting text from: 25-1157.ERRATA.11-6-2025_2599454.pdf
+[info] Summarizing: 25-1157.ERRATA.11-6-2025_2599454.pdf
+[info] Using scraped metadata: date=2025-11-06, case=25-1157
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.06_25-1157.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-06-2025-25-1622-miles-v-us-opinion-25-1622-opinion-11-6-2025_2599445/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1622.OPINION.11-6-2025_2599445.pdf
+[info] Case: 25-1622: MILES v. US
+[info] Case Number: 25-1622
+[info] Opinion Date: 2025-11-06
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1622.OPINION.11-6-2025_2599445.pdf
+[info] Extracting text from: 25-1622.OPINION.11-6-2025_2599445.pdf
+[info] Summarizing: 25-1622.OPINION.11-6-2025_2599445.pdf
+[info] Using scraped metadata: date=2025-11-06, case=25-1622
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.06_25-1622.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-05-2025-24-1606-supernus-pharmaceuticals-inc-v-ajanta-pharma-limited-order-24-1606-order-11-5-2025_2599233/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1606.ORDER.11-5-2025_2599233.pdf
+[info] Case: 24-1606: SUPERNUS PHARMACEUTICALS, INC. v. AJANTA PHARMA LIMITED
+[info] Case Number: 24-1606
+[info] Opinion Date: 2025-11-05
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1606.ORDER.11-5-2025_2599233.pdf
+[info] Extracting text from: 24-1606.ORDER.11-5-2025_2599233.pdf
+[info] Summarizing: 24-1606.ORDER.11-5-2025_2599233.pdf
+[info] Using scraped metadata: date=2025-11-05, case=24-1606
+[ok] Wrote summary: summaries/2025-11-06/non-precedential/2025.11.05_24-1606.txt
+
+[info] Sending summary email to drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com...
+[ok] Summary email sent to: drewwileyroberts@gmail.com, richard.lowry@lw.com, drew.roberts@lw.com, andrew.kerrick@lw.com, sarah.propst@lw.com
+
+[ok] Processed 8 PDF(s)
+[2025-11-06 12:04:32] Check completed
+
+========================================
+[2025-11-06 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-06 (8 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:06:02] Check completed
+
+========================================
+[2025-11-06 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-06 (8 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:08:02] Check completed
+
+========================================
+[2025-11-06 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-06 (8 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:10:02] Check completed
+
+========================================
+[2025-11-06 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-06 (8 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:12:02] Check completed
+
+========================================
+[2025-11-06 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-06 (8 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-06 12:14:02] Check completed
+

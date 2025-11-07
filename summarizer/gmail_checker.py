@@ -305,7 +305,7 @@ def send_summary_email(
 <body style="font-family: Arial, sans-serif; font-size: 14px; color: #333; max-width: 800px;">
     <h1 style="color: #1a1a1a; border-bottom: 3px solid #0066cc; padding-bottom: 10px;">{date_str} Federal Circuit Opinions</h1>
     <p style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 15px 0; font-size: 12px; color: #856404;">
-        <strong>Note:</strong> The below summaries have been generated using AI, and have not been checked by an attorney. Read and analyze cases before relying upon them. Do not rely on the AI summary.
+        <strong>Note:</strong> The below summaries have been generated using AI, and have not been reviewed by an attorney. Read and analyze any case before relying on it. Do not rely on the AI summary.
     </p>
 """
     
