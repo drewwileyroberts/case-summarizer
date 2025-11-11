@@ -206,11 +206,15 @@ class CaseSummary:
     author_judge: str | None = None
     case_summary: str | None = None
     major_holdings: str | None = None
+    is_rule_42b_dismissal: bool = False  # Fed. R. App. P. 42(b) dismissal (no opinion content)
+    patent_law_issues: List[str] = None  # List of patent law issues addressed (for patent cases only)
     
     def __post_init__(self):
-        # Initialize panel_judges to empty list if None
+        # Initialize lists to empty if None
         if self.panel_judges is None:
             self.panel_judges = []
+        if self.patent_law_issues is None:
+            self.patent_law_issues = []
 
 
 def _markdown_to_html(text: str) -> str:
@@ -292,10 +296,11 @@ def send_summary_email(
     # Normalize to_email to a list
     to_emails = [to_email] if isinstance(to_email, str) else to_email
     
-    # Categorize cases
-    patent_precedential = [s for s in summaries if s.is_patent_case and s.is_precedential]
-    patent_non_precedential = [s for s in summaries if s.is_patent_case and not s.is_precedential]
-    non_patent = [s for s in summaries if not s.is_patent_case]
+    # Categorize cases - Rule 42(b) dismissals are separate from patent/non-patent
+    rule_42b_dismissals = [s for s in summaries if s.is_rule_42b_dismissal]
+    patent_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and s.is_patent_case and s.is_precedential]
+    patent_non_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and s.is_patent_case and not s.is_precedential]
+    non_patent = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_patent_case]
     
     # Build HTML email body with inline styles (Outlook-friendly)
     date_str = email_date.strftime("%B %d, %Y")
@@ -305,7 +310,7 @@ def send_summary_email(
 <body style="font-family: Arial, sans-serif; font-size: 14px; color: #333; max-width: 800px;">
     <h1 style="color: #1a1a1a; border-bottom: 3px solid #0066cc; padding-bottom: 10px;">{date_str} Federal Circuit Opinions</h1>
     <p style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 15px 0; font-size: 12px; color: #856404;">
-        <strong>Note:</strong> The below summaries have been generated using AI, and have not been reviewed by an attorney. Read and analyze any case before relying on it. Do not rely on the AI summary.
+        <strong>Note:</strong> The below summaries have been generated using AI and have not been reviewed by an attorney. Read and analyze any case before relying on it. Do not rely on the AI summary.
     </p>
 """
     
@@ -332,6 +337,12 @@ def send_summary_email(
                 judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
                 judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
                 
+                # Format patent law issues
+                issues_line = ""
+                if summary.patent_law_issues:
+                    issues_text = ", ".join(summary.patent_law_issues)
+                    issues_line = f"<p style=\"margin: 5px 0;\"><strong>Issues Addressed:</strong> {issues_text}</p>"
+                
                 # Use structured summary if available, fallback to summary_text
                 summary_content = summary.case_summary if summary.case_summary else summary.summary_text
                 summary_html = _markdown_to_html(summary_content)
@@ -345,6 +356,7 @@ def send_summary_email(
     <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0 15px 20px; border-left: 4px solid #006600;">
         <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link}</p>
         {judges_line}
+        {issues_line}
         <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
         <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
         {holdings_html}
@@ -368,6 +380,12 @@ def send_summary_email(
                 judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
                 judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
                 
+                # Format patent law issues
+                issues_line = ""
+                if summary.patent_law_issues:
+                    issues_text = ", ".join(summary.patent_law_issues)
+                    issues_line = f"<p style=\"margin: 5px 0;\"><strong>Issues Addressed:</strong> {issues_text}</p>"
+                
                 # Use structured summary if available, fallback to summary_text
                 summary_content = summary.case_summary if summary.case_summary else summary.summary_text
                 summary_html = _markdown_to_html(summary_content)
@@ -381,6 +399,7 @@ def send_summary_email(
     <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0 15px 20px; border-left: 4px solid #999;">
         <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link}</p>
         {judges_line}
+        {issues_line}
         <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
         <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
         {holdings_html}
@@ -401,6 +420,22 @@ def send_summary_email(
                 case_link = case_name
             html_body += f"""
     <p style="margin: 10px 0 10px 20px;">{case_link}</p>
+"""
+    
+    # Rule 42(b) Dismissals Section
+    if rule_42b_dismissals:
+        html_body += f"""
+    <h2 style="color: #999; margin-top: 30px; border-bottom: 2px solid #999; padding-bottom: 5px;">RULE 42(b) DISMISSALS ({len(rule_42b_dismissals)})</h2>
+"""
+        for summary in rule_42b_dismissals:
+            case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
+            # Make case name a clickable link if PDF URL is available
+            if summary.pdf_url:
+                case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
+            else:
+                case_link = case_name
+            html_body += f"""
+    <p style="margin: 10px 0 10px 20px; color: #666;">{case_link} <em>(dismissed)</em></p>
 """
     
     html_body += """
@@ -569,6 +604,8 @@ def process_court_emails(
                     author_judge=result.author_judge,
                     case_summary=result.case_summary,
                     major_holdings=result.major_holdings,
+                    is_rule_42b_dismissal=result.is_rule_42b_dismissal,
+                    patent_law_issues=result.patent_law_issues,
                 ))
     
     # Send summary email if email_to is provided
