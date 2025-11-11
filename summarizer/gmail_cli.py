@@ -34,8 +34,8 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument(
         "--sender",
         nargs="+",
-        default=["uscourts@updates.uscourts.gov", "drewwileyroberts@gmail.com"],
-        help="Email sender(s) to search for (default: uscourts@updates.uscourts.gov and drewwileyroberts@gmail.com)",
+        default=["uscourts@updates.uscourts.gov"],
+        help="Email sender(s) to search for (default: uscourts@updates.uscourts.gov)",
     )
     parser.add_argument(
         "--pdf-dir",

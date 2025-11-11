@@ -23,6 +23,7 @@ class SummarizationResult:
     case_summary: Optional[str] = None  # 4-5 sentence summary
     major_holdings: Optional[str] = None  # Major holdings from the case
     is_rule_42b_dismissal: bool = False  # Fed. R. App. P. 42(b) dismissal (no opinion content)
+    is_rule_36_affirmance: bool = False  # Fed. R. App. P. Rule 36 affirmance (minimal opinion content)
     patent_law_issues: List[str] = None  # List of patent law issues addressed (for patent cases only)
     
     def __post_init__(self):
@@ -126,9 +127,10 @@ def _extract_structured_info(client: OpenAI, model: str, text: str) -> dict:
     structured_prompt = """You are analyzing a legal case document. Please answer the following questions and return your response in valid JSON format.
 
 Questions:
-1. Is this a Fed. R. App. P. 42(b) dismissal? These are very short dismissal orders with no substantive opinion content - just a notice that the case was dismissed. (true/false)
-2. Is this a patent-related case? (true/false) - Skip if question 1 is true
-3. What are the main patent law issues addressed in this case? Select up to 5 of the most important issues from the list below. Use ONLY the exact strings provided. Return empty array [] if not a patent case or if Rule 42(b) dismissal.
+1a. Is this a Fed. R. App. P. 42(b) dismissal? These are very short dismissal orders with no substantive opinion content - just a notice that the case was dismissed. (true/false)
+1b. Is this a Fed. R. App. P. Rule 36 affirmance? These are very short per curiam affirmances with minimal substantive content - just affirming the lower court decision. (true/false)
+2. Is this a patent-related case? (true/false) - Skip if question 1a or 1b is true
+3. What are the main patent law issues addressed in this case? Select up to 5 of the most important issues from the list below. Use ONLY the exact strings provided. Return empty array [] if not a patent case or if question 1a or 1b is true.
 
 Possible patent law issues (use exact strings, select up to 5 most important):
 - patent-eligible subject matter (§ 101)
@@ -211,14 +213,15 @@ Possible patent law issues (use exact strings, select up to 5 most important):
 - reissue/reexamination effect on litigation (§ 251–§ 257)
 - constitutional issues
 
-4. Which judges were on the panel? Return as an array of judge last names. If it's Per Curiam, return ["Per Curiam"]. If unsigned, return ["Unsigned"]. Return empty array [] if this is a Rule 42(b) dismissal.
-5. Which judge authored the opinion? Return the last name of the authoring judge, or "Per Curiam" or "Unsigned" if applicable. Return null if you cannot determine or if this is a Rule 42(b) dismissal.
-6. Provide a 4-5 sentence summary of the case. Focus on the key facts, legal issues, and outcome. Return empty string "" if this is a Rule 42(b) dismissal.
-7. What are the major holdings from this case? A major holding can be either: (a) a broad legal principle or rule that could apply to future cases, or (b) the case's disposition with its substantive reasoning (e.g., "Affirmed that the patent was invalid for lack of written description"). Many cases have only 1-2 major holdings, and some have none. Return 0-3 holdings only. Be very selective—do not include bare outcomes without reasoning (e.g., "Plaintiff failed to prove infringement") or generic procedural statements (e.g., "The district court was correct"). Format each holding on a new line like: "1. [holding text]\\n2. [holding text]\\n3. [holding text]". Return empty string "" if this is a Rule 42(b) dismissal or if no major holdings.
+4. Which judges were on the panel? Return as an array of judge last names. If it's Per Curiam, return ["Per Curiam"]. If unsigned, return ["Unsigned"]. Return empty array [] if question 1a or 1b is true.
+5. Which judge authored the opinion? Return the last name of the authoring judge, or "Per Curiam" or "Unsigned" if applicable. Return null if you cannot determine or if question 1a or 1b is true.
+6. Provide a 4-5 sentence summary of the case. Focus on the key facts, legal issues, and outcome. Return empty string "" if question 1a or 1b is true.
+7. What are the major holdings from this case? A major holding can be either: (a) a broad legal principle or rule that could apply to future cases, or (b) the case's disposition with its substantive reasoning (e.g., "Affirmed that the patent was invalid for lack of written description"). Many cases have only 1-2 major holdings, and some have none. Return 0-3 holdings only. Be very selective—do not include bare outcomes without reasoning (e.g., "Plaintiff failed to prove infringement") or generic procedural statements (e.g., "The district court was correct"). Format each holding on a new line like: "1. [holding text]\\n2. [holding text]\\n3. [holding text]". Return empty string "" if question 1a or 1b is true or if no major holdings.
 
 Return ONLY valid JSON in this exact format (no additional text):
 {
   "is_rule_42b_dismissal": true or false,
+  "is_rule_36_affirmance": true or false,
   "is_patent_case": true or false,
   "patent_law_issues": ["issue1", "issue2"] or [],
   "panel_judges": ["Judge1", "Judge2", "Judge3"] or [],
@@ -244,6 +247,7 @@ Return ONLY valid JSON in this exact format (no additional text):
         # Validate and provide defaults
         return {
             'is_rule_42b_dismissal': bool(data.get('is_rule_42b_dismissal', False)),
+            'is_rule_36_affirmance': bool(data.get('is_rule_36_affirmance', False)),
             'is_patent_case': bool(data.get('is_patent_case', False)),
             'patent_law_issues': data.get('patent_law_issues', []),
             'panel_judges': data.get('panel_judges', []),
@@ -257,6 +261,7 @@ Return ONLY valid JSON in this exact format (no additional text):
         # Return default values
         return {
             'is_rule_42b_dismissal': False,
+            'is_rule_36_affirmance': False,
             'is_patent_case': False,
             'patent_law_issues': [],
             'panel_judges': [],
@@ -308,6 +313,7 @@ def summarize_text(
         case_summary=structured_info['case_summary'],
         major_holdings=structured_info['major_holdings'],
         is_rule_42b_dismissal=structured_info['is_rule_42b_dismissal'],
+        is_rule_36_affirmance=structured_info['is_rule_36_affirmance'],
         patent_law_issues=structured_info['patent_law_issues'],
     )
 

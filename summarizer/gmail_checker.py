@@ -207,6 +207,7 @@ class CaseSummary:
     case_summary: str | None = None
     major_holdings: str | None = None
     is_rule_42b_dismissal: bool = False  # Fed. R. App. P. 42(b) dismissal (no opinion content)
+    is_rule_36_affirmance: bool = False  # Fed. R. App. P. Rule 36 affirmance (minimal opinion content)
     patent_law_issues: List[str] = None  # List of patent law issues addressed (for patent cases only)
     
     def __post_init__(self):
@@ -296,11 +297,12 @@ def send_summary_email(
     # Normalize to_email to a list
     to_emails = [to_email] if isinstance(to_email, str) else to_email
     
-    # Categorize cases - Rule 42(b) dismissals are separate from patent/non-patent
+    # Categorize cases - Summary dispositions are separate from patent/non-patent
     rule_42b_dismissals = [s for s in summaries if s.is_rule_42b_dismissal]
-    patent_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and s.is_patent_case and s.is_precedential]
-    patent_non_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and s.is_patent_case and not s.is_precedential]
-    non_patent = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_patent_case]
+    rule_36_affirmances = [s for s in summaries if s.is_rule_36_affirmance]
+    patent_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance and s.is_patent_case and s.is_precedential]
+    patent_non_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance and s.is_patent_case and not s.is_precedential]
+    non_patent = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance and not s.is_patent_case]
     
     # Build HTML email body with inline styles (Outlook-friendly)
     date_str = email_date.strftime("%B %d, %Y")
@@ -422,20 +424,43 @@ def send_summary_email(
     <p style="margin: 10px 0 10px 20px;">{case_link}</p>
 """
     
-    # Rule 42(b) Dismissals Section
-    if rule_42b_dismissals:
+    # Summary Dispositions Section
+    if rule_42b_dismissals or rule_36_affirmances:
+        total_dispositions = len(rule_42b_dismissals) + len(rule_36_affirmances)
         html_body += f"""
-    <h2 style="color: #999; margin-top: 30px; border-bottom: 2px solid #999; padding-bottom: 5px;">RULE 42(b) DISMISSALS ({len(rule_42b_dismissals)})</h2>
+    <h2 style="color: #999; margin-top: 30px; border-bottom: 2px solid #999; padding-bottom: 5px;">SUMMARY DISPOSITIONS ({total_dispositions})</h2>
 """
-        for summary in rule_42b_dismissals:
-            case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
-            # Make case name a clickable link if PDF URL is available
-            if summary.pdf_url:
-                case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
-            else:
-                case_link = case_name
+        
+        # Rule 42(b) Dismissals sub-section
+        if rule_42b_dismissals:
             html_body += f"""
-    <p style="margin: 10px 0 10px 20px; color: #666;">{case_link} <em>(dismissed)</em></p>
+    <h3 style="color: #999; margin-top: 15px; margin-left: 15px;">Rule 42(b) Dismissals ({len(rule_42b_dismissals)})</h3>
+"""
+            for summary in rule_42b_dismissals:
+                case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
+                # Make case name a clickable link if PDF URL is available
+                if summary.pdf_url:
+                    case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
+                else:
+                    case_link = case_name
+                html_body += f"""
+    <p style="margin: 10px 0 10px 35px; color: #666;">{case_link} <em>(dismissed)</em></p>
+"""
+        
+        # Rule 36 Affirmances sub-section
+        if rule_36_affirmances:
+            html_body += f"""
+    <h3 style="color: #999; margin-top: 15px; margin-left: 15px;">Rule 36 Affirmances ({len(rule_36_affirmances)})</h3>
+"""
+            for summary in rule_36_affirmances:
+                case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
+                # Make case name a clickable link if PDF URL is available
+                if summary.pdf_url:
+                    case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
+                else:
+                    case_link = case_name
+                html_body += f"""
+    <p style="margin: 10px 0 10px 35px; color: #666;">{case_link} <em>(affirmed)</em></p>
 """
     
     html_body += """
@@ -605,6 +630,7 @@ def process_court_emails(
                     case_summary=result.case_summary,
                     major_holdings=result.major_holdings,
                     is_rule_42b_dismissal=result.is_rule_42b_dismissal,
+                    is_rule_36_affirmance=result.is_rule_36_affirmance,
                     patent_law_issues=result.patent_law_issues,
                 ))
     
