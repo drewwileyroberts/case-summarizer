@@ -34,8 +34,8 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument(
         "--sender",
         nargs="+",
-        default=["uscourts@updates.uscourts.gov"],
-        help="Email sender(s) to search for (default: uscourts@updates.uscourts.gov)",
+        default=["uscourts@updates.uscourts.gov", "drewwileyroberts@gmail.com"],
+        help="Email sender(s) to search for (default: uscourts@updates.uscourts.gov and drewwileyroberts@gmail.com)",
     )
     parser.add_argument(
         "--pdf-dir",
@@ -69,6 +69,12 @@ def main(argv: List[str] | None = None) -> int:
         help="Email address(es) to send summary to (optional, space-separated)",
     )
     parser.add_argument(
+        "--email-bcc",
+        nargs="+",
+        default=None,
+        help="Email address(es) to BCC (optional, space-separated)",
+    )
+    parser.add_argument(
         "--force",
         action="store_true",
         help="Force reprocessing even if summaries already exist for this date",
@@ -98,6 +104,7 @@ def main(argv: List[str] | None = None) -> int:
         summary_dir=Path(args.summary_dir),
         prompt_file=args.prompt_file,
         email_to=args.email_to,
+        email_bcc=args.email_bcc,
         force=args.force,
     )
 

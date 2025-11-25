@@ -18,7 +18,8 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Federal Circuit check..." >> logs/
 
 # Run the gmail checker with multiple email recipients
 python3 -m summarizer.gmail_cli \
-    --email-to richard.lowry@lw.com drew.roberts@lw.com "L&WFEDERALCIRCUITSUMMARIES@lw.com"\
+    --email-to "L&WFEDERALCIRCUITSUMMARIES@lw.com" \
+    --email-bcc richard.lowry@lw.com drew.roberts@lw.com \
     2>&1 | tee -a logs/cron.log
 
 # Log completion

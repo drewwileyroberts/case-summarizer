@@ -271,6 +271,7 @@ def send_summary_email(
     to_email: str | List[str],
     summaries: List[CaseSummary],
     email_date: date,
+    bcc_email: str | List[str] | None = None,
 ) -> bool:
     """
     Send an email with all case summaries in structured format.
@@ -284,6 +285,7 @@ def send_summary_email(
     Args:
         service: Authenticated Gmail API service
         to_email: Email address(es) to send to (string or list of strings)
+        bcc_email: Email address(es) to BCC (string or list of strings, optional)
         summaries: List of CaseSummary objects
         email_date: Date of the opinions
         
@@ -471,17 +473,25 @@ def send_summary_email(
     # Create email message with HTML
     message = MIMEText(html_body, "html")
     message["to"] = ", ".join(to_emails)
+    if bcc_email:
+        bcc_emails = [bcc_email] if isinstance(bcc_email, str) else bcc_email
+        message["bcc"] = ", ".join(bcc_emails)
     message["subject"] = f"Federal Circuit Opinions - {date_str}"
     
     # Encode message
     raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode("utf-8")
+    
+    # Build log message
+    log_parts = [f"to: {', '.join(to_emails)}"]
+    if bcc_email:
+        log_parts.append(f"bcc: {', '.join(bcc_emails)}")
     
     try:
         service.users().messages().send(
             userId="me",
             body={"raw": raw_message}
         ).execute()
-        print(f"[ok] Summary email sent to: {', '.join(to_emails)}")
+        print(f"[ok] Summary email sent ({'; '.join(log_parts)})")
         return True
     except Exception as e:
         print(f"[error] Failed to send email: {e}")
@@ -496,6 +506,7 @@ def process_court_emails(
     summary_dir: Path | None = None,
     prompt_file: str | None = None,
     email_to: str | List[str] | None = None,
+    email_bcc: str | List[str] | None = None,
     force: bool = False,
 ) -> int:
     """
@@ -509,6 +520,7 @@ def process_court_emails(
         summary_dir: Directory to save summaries (defaults to "summaries")
         prompt_file: Optional path to prompt file for summarization
         email_to: Email address(es) to send summary to (string or list of strings, optional)
+        email_bcc: Email address(es) to BCC (string or list of strings, optional)
         force: Force reprocessing even if summaries already exist (default: False)
         
     Returns:
@@ -637,8 +649,12 @@ def process_court_emails(
     # Send summary email if email_to is provided
     if email_to and summaries:
         email_list = [email_to] if isinstance(email_to, str) else email_to
-        print(f"\n[info] Sending summary email to {', '.join(email_list)}...")
-        send_summary_email(service, email_to, summaries, search_date)
+        bcc_list = [email_bcc] if isinstance(email_bcc, str) else (email_bcc or [])
+        log_parts = [f"to: {', '.join(email_list)}"]
+        if bcc_list:
+            log_parts.append(f"bcc: {', '.join(bcc_list)}")
+        print(f"\n[info] Sending summary email ({'; '.join(log_parts)})...")
+        send_summary_email(service, email_to, summaries, search_date, bcc_email=email_bcc)
     
     return pdf_count
 

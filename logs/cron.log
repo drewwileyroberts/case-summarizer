@@ -1705,3 +1705,913 @@
 [ok] Processed 0 PDF(s)
 [2025-11-14 12:14:02] Check completed
 
+========================================
+[2025-11-17 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/17 before:2025/11/18
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/17
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:00:03] Check completed
+
+========================================
+[2025-11-17 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/17 before:2025/11/18
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/17
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:02:03] Check completed
+
+========================================
+[2025-11-17 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/17 before:2025/11/18
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 3 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-17-2025-24-1436-nutricia-north-america-inc-v-us-opinion-24-1436-opinion-11-17-2025_2604754/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1436.OPINION.11-17-2025_2604754.pdf
+[info] Case: 24-1436: NUTRICIA NORTH AMERICA, INC. v. US
+[info] Case Number: 24-1436
+[info] Opinion Date: 2025-11-17
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/24-1436.OPINION.11-17-2025_2604754.pdf
+[info] Extracting text from: 24-1436.OPINION.11-17-2025_2604754.pdf
+[info] Summarizing: 24-1436.OPINION.11-17-2025_2604754.pdf
+[info] Using scraped metadata: date=2025-11-17, case=24-1436
+[ok] Wrote summary: summaries/2025-11-17/precedential/2025.11.17_24-1436.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-17-2025-25-2111-swank-v-secretary-of-the-navy-order-25-2111-order-11-17-2025_2604798/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2111.ORDER.11-17-2025_2604798.pdf
+[info] Case: 25-2111: SWANK v. SECRETARY OF THE NAVY
+[info] Case Number: 25-2111
+[info] Opinion Date: 2025-11-17
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2111.ORDER.11-17-2025_2604798.pdf
+[info] Extracting text from: 25-2111.ORDER.11-17-2025_2604798.pdf
+[info] Summarizing: 25-2111.ORDER.11-17-2025_2604798.pdf
+[info] Using scraped metadata: date=2025-11-17, case=25-2111
+[ok] Wrote summary: summaries/2025-11-17/non-precedential/2025.11.17_25-2111.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-17-2025-24-1431-kaptan-demir-celik-endustrisi-ve-ticaret-as-v-us-opinion-24-1431-opinion-11-17-2025_2604727/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1431.OPINION.11-17-2025_2604727.pdf
+[info] Case: 24-1431: KAPTAN DEMIR CELIK ENDUSTRISI VE TICARET A.S. v. US
+[info] Case Number: 24-1431
+[info] Opinion Date: 2025-11-17
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/24-1431.OPINION.11-17-2025_2604727.pdf
+[info] Extracting text from: 24-1431.OPINION.11-17-2025_2604727.pdf
+[info] Summarizing: 24-1431.OPINION.11-17-2025_2604727.pdf
+[info] Using scraped metadata: date=2025-11-17, case=24-1431
+[ok] Wrote summary: summaries/2025-11-17/precedential/2025.11.17_24-1431.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 3 PDF(s)
+[2025-11-17 12:04:50] Check completed
+
+========================================
+[2025-11-17 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-17 (3 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:06:02] Check completed
+
+========================================
+[2025-11-17 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-17 (3 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:08:02] Check completed
+
+========================================
+[2025-11-17 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-17 (3 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:10:02] Check completed
+
+========================================
+[2025-11-17 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-17 (3 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:12:02] Check completed
+
+========================================
+[2025-11-17 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-17 (3 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-17 12:14:02] Check completed
+
+========================================
+[2025-11-18 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/18 before:2025/11/19
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/18
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:00:02] Check completed
+
+========================================
+[2025-11-18 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/18 before:2025/11/19
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/18
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:02:03] Check completed
+
+========================================
+[2025-11-18 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/18 before:2025/11/19
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 4 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-18-2025-24-1078-duke-university-v-sandoz-inc-opinion-24-1078-opinion-11-18-2025_2605503/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1078.OPINION.11-18-2025_2605503.pdf
+[info] Case: 24-1078: DUKE UNIVERSITY v. SANDOZ INC.
+[info] Case Number: 24-1078
+[info] Opinion Date: 2025-11-18
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/24-1078.OPINION.11-18-2025_2605503.pdf
+[info] Extracting text from: 24-1078.OPINION.11-18-2025_2605503.pdf
+[info] Summarizing: 24-1078.OPINION.11-18-2025_2605503.pdf
+[info] Using scraped metadata: date=2025-11-18, case=24-1078
+[ok] Wrote summary: summaries/2025-11-18/precedential/2025.11.18_24-1078.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-18-2025-25-2075-mason-v-usps-order-25-2075-order-11-18-2025_2605502/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2075.ORDER.11-18-2025_2605502.pdf
+[info] Case: 25-2075: MASON v. USPS
+[info] Case Number: 25-2075
+[info] Opinion Date: 2025-11-18
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2075.ORDER.11-18-2025_2605502.pdf
+[info] Extracting text from: 25-2075.ORDER.11-18-2025_2605502.pdf
+[info] Summarizing: 25-2075.ORDER.11-18-2025_2605502.pdf
+[info] Using scraped metadata: date=2025-11-18, case=25-2075
+[ok] Wrote summary: summaries/2025-11-18/non-precedential/2025.11.18_25-2075.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-18-2025-24-2142-lock-v-collins-opinion-24-2142-opinion-11-18-2025_2605523/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-2142.OPINION.11-18-2025_2605523.pdf
+[info] Case: 24-2142: LOCK v. COLLINS
+[info] Case Number: 24-2142
+[info] Opinion Date: 2025-11-18
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-2142.OPINION.11-18-2025_2605523.pdf
+[info] Extracting text from: 24-2142.OPINION.11-18-2025_2605523.pdf
+[info] Summarizing: 24-2142.OPINION.11-18-2025_2605523.pdf
+[info] Using scraped metadata: date=2025-11-18, case=24-2142
+[ok] Wrote summary: summaries/2025-11-18/non-precedential/2025.11.18_24-2142.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-18-2025-24-1386-young-v-collins-opinion-24-1386-opinion-11-18-2025_2605546/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1386.OPINION.11-18-2025_2605546.pdf
+[info] Case: 24-1386: YOUNG v. COLLINS
+[info] Case Number: 24-1386
+[info] Opinion Date: 2025-11-18
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1386.OPINION.11-18-2025_2605546.pdf
+[info] Extracting text from: 24-1386.OPINION.11-18-2025_2605546.pdf
+[info] Summarizing: 24-1386.OPINION.11-18-2025_2605546.pdf
+[info] Using scraped metadata: date=2025-11-18, case=24-1386
+[ok] Wrote summary: summaries/2025-11-18/non-precedential/2025.11.18_24-1386.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 4 PDF(s)
+[2025-11-18 12:05:00] Check completed
+
+========================================
+[2025-11-18 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-18 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:06:02] Check completed
+
+========================================
+[2025-11-18 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-18 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:08:02] Check completed
+
+========================================
+[2025-11-18 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-18 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:10:02] Check completed
+
+========================================
+[2025-11-18 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-18 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:12:02] Check completed
+
+========================================
+[2025-11-18 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-18 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-18 12:14:02] Check completed
+
+========================================
+[2025-11-19 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/19 before:2025/11/20
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/19
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:00:08] Check completed
+
+========================================
+[2025-11-19 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/19 before:2025/11/20
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 4 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-19-2025-25-1379-chae-v-us-opinion-25-1379-opinion-11-19-2025_2606052/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1379.OPINION.11-19-2025_2606052.pdf
+[info] Case: 25-1379: CHAE v. US
+[info] Case Number: 25-1379
+[info] Opinion Date: 2025-11-19
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1379.OPINION.11-19-2025_2606052.pdf
+[info] Extracting text from: 25-1379.OPINION.11-19-2025_2606052.pdf
+[info] Summarizing: 25-1379.OPINION.11-19-2025_2606052.pdf
+[info] Using scraped metadata: date=2025-11-19, case=25-1379
+[ok] Wrote summary: summaries/2025-11-19/non-precedential/2025.11.19_25-1379.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-19-2025-25-2160-randall-v-us-order-25-2160-order-11-19-2025_2606181/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2160.ORDER.11-19-2025_2606181.pdf
+[info] Case: 25-2160: RANDALL v. US
+[info] Case Number: 25-2160
+[info] Opinion Date: 2025-11-19
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2160.ORDER.11-19-2025_2606181.pdf
+[info] Extracting text from: 25-2160.ORDER.11-19-2025_2606181.pdf
+[info] Summarizing: 25-2160.ORDER.11-19-2025_2606181.pdf
+[info] Using scraped metadata: date=2025-11-19, case=25-2160
+[ok] Wrote summary: summaries/2025-11-19/non-precedential/2025.11.19_25-2160.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-19-2025-25-2159-randall-v-us-order-25-2159-order-11-19-2025_2606156/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2159.ORDER.11-19-2025_2606156.pdf
+[info] Case: 25-2159: RANDALL v. US
+[info] Case Number: 25-2159
+[info] Opinion Date: 2025-11-19
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2159.ORDER.11-19-2025_2606156.pdf
+[info] Extracting text from: 25-2159.ORDER.11-19-2025_2606156.pdf
+[info] Summarizing: 25-2159.ORDER.11-19-2025_2606156.pdf
+[info] Using scraped metadata: date=2025-11-19, case=25-2159
+[ok] Wrote summary: summaries/2025-11-19/non-precedential/2025.11.19_25-2159.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-19-2025-24-1453-national-steel-car-ltd-v-greenbrier-concarril-llc-opinion-24-1453-opinion-11-19-2025_2606033/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1453.OPINION.11-19-2025_2606033.pdf
+[info] Case: 24-1453: NATIONAL STEEL CAR LTD. v. GREENBRIER-CONCARRIL LLC
+[info] Case Number: 24-1453
+[info] Opinion Date: 2025-11-19
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1453.OPINION.11-19-2025_2606033.pdf
+[info] Extracting text from: 24-1453.OPINION.11-19-2025_2606033.pdf
+[info] Summarizing: 24-1453.OPINION.11-19-2025_2606033.pdf
+[info] Using scraped metadata: date=2025-11-19, case=24-1453
+[ok] Wrote summary: summaries/2025-11-19/non-precedential/2025.11.19_24-1453.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 4 PDF(s)
+[2025-11-19 12:02:39] Check completed
+
+========================================
+[2025-11-19 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-19 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:04:02] Check completed
+
+========================================
+[2025-11-19 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-19 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:06:02] Check completed
+
+========================================
+[2025-11-19 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-19 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:08:02] Check completed
+
+========================================
+[2025-11-19 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-19 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:10:02] Check completed
+
+========================================
+[2025-11-19 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-19 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:12:02] Check completed
+
+========================================
+[2025-11-19 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-19 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-19 12:14:02] Check completed
+
+========================================
+[2025-11-20 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/20 before:2025/11/21
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/20
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:00:02] Check completed
+
+========================================
+[2025-11-20 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/20 before:2025/11/21
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 2 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-19-2025-25-1969-walsh-v-collins-order-25-1969-order-11-19-2025_2606366/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1969.ORDER.11-19-2025_2606366.pdf
+[info] Case: 25-1969: WALSH v. COLLINS
+[info] Case Number: 25-1969
+[info] Opinion Date: 2025-11-19
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1969.ORDER.11-19-2025_2606366.pdf
+[info] Extracting text from: 25-1969.ORDER.11-19-2025_2606366.pdf
+[info] Summarizing: 25-1969.ORDER.11-19-2025_2606366.pdf
+[info] Using scraped metadata: date=2025-11-19, case=25-1969
+[ok] Wrote summary: summaries/2025-11-20/non-precedential/2025.11.19_25-1969.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-20-2025-24-1432-google-llc-v-nobots-llc-opinion-24-1432-opinion-11-20-2025_2606713/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1432.OPINION.11-20-2025_2606713.pdf
+[info] Case: 24-1432: GOOGLE LLC v. NOBOTS LLC
+[info] Case Number: 24-1432
+[info] Opinion Date: 2025-11-20
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1432.OPINION.11-20-2025_2606713.pdf
+[info] Extracting text from: 24-1432.OPINION.11-20-2025_2606713.pdf
+[info] Summarizing: 24-1432.OPINION.11-20-2025_2606713.pdf
+[info] Using scraped metadata: date=2025-11-20, case=24-1432
+[ok] Wrote summary: summaries/2025-11-20/non-precedential/2025.11.20_24-1432.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 2 PDF(s)
+[2025-11-20 12:02:34] Check completed
+
+========================================
+[2025-11-20 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-20 (2 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:04:02] Check completed
+
+========================================
+[2025-11-20 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-20 (2 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:06:02] Check completed
+
+========================================
+[2025-11-20 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-20 (2 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:08:02] Check completed
+
+========================================
+[2025-11-20 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-20 (2 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:10:02] Check completed
+
+========================================
+[2025-11-20 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-20 (2 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:12:02] Check completed
+
+========================================
+[2025-11-20 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-20 (2 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-20 12:14:02] Check completed
+
+========================================
+[2025-11-21 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/21 before:2025/11/22
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/21
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:00:03] Check completed
+
+========================================
+[2025-11-21 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/21 before:2025/11/22
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 4 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-21-2025-24-1717-reyes-v-mspb-opinion-24-1717-opinion-11-21-2025_2607600/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1717.OPINION.11-21-2025_2607600.pdf
+[info] Case: 24-1717: REYES v. MSPB
+[info] Case Number: 24-1717
+[info] Opinion Date: 2025-11-21
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/24-1717.OPINION.11-21-2025_2607600.pdf
+[info] Extracting text from: 24-1717.OPINION.11-21-2025_2607600.pdf
+[info] Summarizing: 24-1717.OPINION.11-21-2025_2607600.pdf
+[info] Using scraped metadata: date=2025-11-21, case=24-1717
+[ok] Wrote summary: summaries/2025-11-21/precedential/2025.11.21_24-1717.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-21-2025-25-1523-prewitt-v-collins-opinion-25-1523-opinion-11-21-2025_2607592/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1523.OPINION.11-21-2025_2607592.pdf
+[info] Case: 25-1523: PREWITT v. COLLINS
+[info] Case Number: 25-1523
+[info] Opinion Date: 2025-11-21
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1523.OPINION.11-21-2025_2607592.pdf
+[info] Extracting text from: 25-1523.OPINION.11-21-2025_2607592.pdf
+[info] Summarizing: 25-1523.OPINION.11-21-2025_2607592.pdf
+[info] Using scraped metadata: date=2025-11-21, case=25-1523
+[ok] Wrote summary: summaries/2025-11-21/non-precedential/2025.11.21_25-1523.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-21-2025-25-1304-senter-v-energy-opinion-25-1304-opinion-11-21-2025_2607614/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1304.OPINION.11-21-2025_2607614.pdf
+[info] Case: 25-1304: SENTER v. ENERGY
+[info] Case Number: 25-1304
+[info] Opinion Date: 2025-11-21
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1304.OPINION.11-21-2025_2607614.pdf
+[info] Extracting text from: 25-1304.OPINION.11-21-2025_2607614.pdf
+[info] Summarizing: 25-1304.OPINION.11-21-2025_2607614.pdf
+[info] Using scraped metadata: date=2025-11-21, case=25-1304
+[ok] Wrote summary: summaries/2025-11-21/non-precedential/2025.11.21_25-1304.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-20-2025-26-1074-air-products-and-chemicals-inc-v-evonik-operations-gmbh-order-26-1074-order-11-20-2025_2607256/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/26-1074.ORDER.11-20-2025_2607256.pdf
+[info] Case: 26-1074: AIR PRODUCTS AND CHEMICALS, INC. v. EVONIK OPERATIONS GMBH
+[info] Case Number: 26-1074
+[info] Opinion Date: 2025-11-20
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/26-1074.ORDER.11-20-2025_2607256.pdf
+[info] Extracting text from: 26-1074.ORDER.11-20-2025_2607256.pdf
+[info] Summarizing: 26-1074.ORDER.11-20-2025_2607256.pdf
+[info] Using scraped metadata: date=2025-11-20, case=26-1074
+[ok] Wrote summary: summaries/2025-11-21/non-precedential/2025.11.20_26-1074.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 4 PDF(s)
+[2025-11-21 12:02:47] Check completed
+
+========================================
+[2025-11-21 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-21 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:04:02] Check completed
+
+========================================
+[2025-11-21 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-21 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:06:02] Check completed
+
+========================================
+[2025-11-21 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-21 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:08:02] Check completed
+
+========================================
+[2025-11-21 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-21 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:10:02] Check completed
+
+========================================
+[2025-11-21 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-21 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:12:02] Check completed
+
+========================================
+[2025-11-21 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-21 (4 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-21 12:14:02] Check completed
+
+========================================
+[2025-11-24 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/24 before:2025/11/25
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/24
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:00:08] Check completed
+
+========================================
+[2025-11-24 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/24 before:2025/11/25
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 6 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-24-2025-25-2108-radius-health-inc-v-orbicular-pharmaceutical-technologies-private-ltd-order-25-2108-order-11-24-2025_2608465/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2108.ORDER.11-24-2025_2608465.pdf
+[info] Case: 25-2108: RADIUS HEALTH, INC. v. ORBICULAR PHARMACEUTICAL TECHNOLOGIES PRIVATE LTD
+[info] Case Number: 25-2108
+[info] Opinion Date: 2025-11-24
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2108.ORDER.11-24-2025_2608465.pdf
+[info] Extracting text from: 25-2108.ORDER.11-24-2025_2608465.pdf
+[info] Summarizing: 25-2108.ORDER.11-24-2025_2608465.pdf
+[info] Using scraped metadata: date=2025-11-24, case=25-2108
+[ok] Wrote summary: summaries/2025-11-24/non-precedential/2025.11.24_25-2108.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-24-2025-25-1964-emm-innovations-llc-v-remind101-llc-order-25-1964-order-11-24-2025_2608454/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-1964.ORDER.11-24-2025_2608454.pdf
+[info] Case: 25-1964: EMM INNOVATIONS LLC v. REMIND101, LLC
+[info] Case Number: 25-1964
+[info] Opinion Date: 2025-11-24
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-1964.ORDER.11-24-2025_2608454.pdf
+[info] Extracting text from: 25-1964.ORDER.11-24-2025_2608454.pdf
+[info] Summarizing: 25-1964.ORDER.11-24-2025_2608454.pdf
+[info] Using scraped metadata: date=2025-11-24, case=25-1964
+[ok] Wrote summary: summaries/2025-11-24/non-precedential/2025.11.24_25-1964.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-24-2025-23-1812-perry-v-pto-opinion-23-1812-opinion-11-24-2025_2608574/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/23-1812.OPINION.11-24-2025_2608574.pdf
+[info] Case: 23-1812: PERRY v. PTO
+[info] Case Number: 23-1812
+[info] Opinion Date: 2025-11-24
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/23-1812.OPINION.11-24-2025_2608574.pdf
+[info] Extracting text from: 23-1812.OPINION.11-24-2025_2608574.pdf
+[info] Summarizing: 23-1812.OPINION.11-24-2025_2608574.pdf
+[info] Using scraped metadata: date=2025-11-24, case=23-1812
+[ok] Wrote summary: summaries/2025-11-24/non-precedential/2025.11.24_23-1812.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-24-2025-26-102-in-re-catanzaro-order-26-102-order-11-24-2025_2608616/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/26-102.ORDER.11-24-2025_2608616.pdf
+[info] Case: 26-102: In Re CATANZARO
+[info] Case Number: 26-102
+[info] Opinion Date: 2025-11-24
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/26-102.ORDER.11-24-2025_2608616.pdf
+[info] Extracting text from: 26-102.ORDER.11-24-2025_2608616.pdf
+[info] Summarizing: 26-102.ORDER.11-24-2025_2608616.pdf
+[info] Using scraped metadata: date=2025-11-24, case=26-102
+[ok] Wrote summary: summaries/2025-11-24/non-precedential/2025.11.24_26-102.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-24-2025-25-2144-olley-v-turner-order-25-2144-order-11-24-2025_2608613/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2144.ORDER.11-24-2025_2608613.pdf
+[info] Case: 25-2144: OLLEY v. TURNER
+[info] Case Number: 25-2144
+[info] Opinion Date: 2025-11-24
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2144.ORDER.11-24-2025_2608613.pdf
+[info] Extracting text from: 25-2144.ORDER.11-24-2025_2608613.pdf
+[info] Summarizing: 25-2144.ORDER.11-24-2025_2608613.pdf
+[info] Using scraped metadata: date=2025-11-24, case=25-2144
+[ok] Wrote summary: summaries/2025-11-24/non-precedential/2025.11.24_25-2144.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-24-2025-25-2048-pleasant-v-mspb-order-25-2048-order-11-24-2025_2608588/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2048.ORDER.11-24-2025_2608588.pdf
+[info] Case: 25-2048: PLEASANT v. MSPB
+[info] Case Number: 25-2048
+[info] Opinion Date: 2025-11-24
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2048.ORDER.11-24-2025_2608588.pdf
+[info] Extracting text from: 25-2048.ORDER.11-24-2025_2608588.pdf
+[info] Summarizing: 25-2048.ORDER.11-24-2025_2608588.pdf
+[info] Using scraped metadata: date=2025-11-24, case=25-2048
+[ok] Wrote summary: summaries/2025-11-24/non-precedential/2025.11.24_25-2048.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 6 PDF(s)
+[2025-11-24 12:02:47] Check completed
+
+========================================
+[2025-11-24 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-24 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:04:02] Check completed
+
+========================================
+[2025-11-24 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-24 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:06:02] Check completed
+
+========================================
+[2025-11-24 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-24 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:08:02] Check completed
+
+========================================
+[2025-11-24 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-24 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:10:02] Check completed
+
+========================================
+[2025-11-24 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-24 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:12:02] Check completed
+
+========================================
+[2025-11-24 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-24 (6 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-24 12:14:02] Check completed
+
+========================================
+[2025-11-25 12:00:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/25 before:2025/11/26
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/25
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:00:04] Check completed
+
+========================================
+[2025-11-25 12:02:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/25 before:2025/11/26
+[info] No emails found from uscourts@updates.uscourts.gov on 2025/11/25
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:02:02] Check completed
+
+========================================
+[2025-11-25 12:04:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Searching Gmail for: from:uscourts@updates.uscourts.gov after:2025/11/25 before:2025/11/26
+[info] Found 1 email(s)
+
+[info] Processing email 1/1
+[info] Found 5 link(s) in email
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-25-2025-24-2121-crowley-government-services-inc-v-us-order-24-2121-order-11-25-2025_2609360/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-2121.ORDER.11-25-2025_2609360.pdf
+[info] Case: 24-2121: CROWLEY GOVERNMENT SERVICES, INC. v. US
+[info] Case Number: 24-2121
+[info] Opinion Date: 2025-11-25
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-2121.ORDER.11-25-2025_2609360.pdf
+[info] Extracting text from: 24-2121.ORDER.11-25-2025_2609360.pdf
+[info] Summarizing: 24-2121.ORDER.11-25-2025_2609360.pdf
+[info] Using scraped metadata: date=2025-11-25, case=24-2121
+[ok] Wrote summary: summaries/2025-11-25/non-precedential/2025.11.25_24-2121.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-25-2025-24-1571-akamai-technologies-inc-v-mediapointe-inc-opinion-24-1571-opinion-11-25-2025_2609454/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1571.OPINION.11-25-2025_2609454.pdf
+[info] Case: 24-1571: AKAMAI TECHNOLOGIES, INC. v. MEDIAPOINTE, INC.
+[info] Case Number: 24-1571
+[info] Opinion Date: 2025-11-25
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/24-1571.OPINION.11-25-2025_2609454.pdf
+[info] Extracting text from: 24-1571.OPINION.11-25-2025_2609454.pdf
+[info] Summarizing: 24-1571.OPINION.11-25-2025_2609454.pdf
+[info] Using scraped metadata: date=2025-11-25, case=24-1571
+[ok] Wrote summary: summaries/2025-11-25/precedential/2025.11.25_24-1571.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-25-2025-24-1873-wolf-creek-railroad-llc-v-us-opinion-24-1873-opinion-11-25-2025_2609418/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1873.OPINION.11-25-2025_2609418.pdf
+[info] Case: 24-1873: WOLF CREEK RAILROAD LLC v. US
+[info] Case Number: 24-1873
+[info] Opinion Date: 2025-11-25
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/24-1873.OPINION.11-25-2025_2609418.pdf
+[info] Extracting text from: 24-1873.OPINION.11-25-2025_2609418.pdf
+[info] Summarizing: 24-1873.OPINION.11-25-2025_2609418.pdf
+[info] Using scraped metadata: date=2025-11-25, case=24-1873
+[ok] Wrote summary: summaries/2025-11-25/non-precedential/2025.11.25_24-1873.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-25-2025-24-1201-escapex-ip-llc-v-google-llc-opinion-24-1201-opinion-11-25-2025_2609432/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/24-1201.OPINION.11-25-2025_2609432.pdf
+[info] Case: 24-1201: ESCAPEX IP, LLC v. GOOGLE LLC
+[info] Case Number: 24-1201
+[info] Opinion Date: 2025-11-25
+[info] Precedential: Yes
+[ok] Downloaded PDF: pdfs/24-1201.OPINION.11-25-2025_2609432.pdf
+[info] Extracting text from: 24-1201.OPINION.11-25-2025_2609432.pdf
+[info] Summarizing: 24-1201.OPINION.11-25-2025_2609432.pdf
+[info] Using scraped metadata: date=2025-11-25, case=24-1201
+[ok] Wrote summary: summaries/2025-11-25/precedential/2025.11.25_24-1201.txt
+[info] Processing uscourts link: https://www.cafc.uscourts.gov/11-25-2025-25-2138-taser-international-inc-v-phazzer-electronics-inc-order-25-2138-order-11-25-2025_2609368/
+[info] Found PDF URL: https://www.cafc.uscourts.gov/opinions-orders/25-2138.ORDER.11-25-2025_2609368.pdf
+[info] Case: 25-2138: TASER INTERNATIONAL, INC. v. PHAZZER ELECTRONICS, INC.
+[info] Case Number: 25-2138
+[info] Opinion Date: 2025-11-25
+[info] Precedential: No
+[ok] Downloaded PDF: pdfs/25-2138.ORDER.11-25-2025_2609368.pdf
+[info] Extracting text from: 25-2138.ORDER.11-25-2025_2609368.pdf
+[info] Summarizing: 25-2138.ORDER.11-25-2025_2609368.pdf
+[info] Using scraped metadata: date=2025-11-25, case=25-2138
+[ok] Wrote summary: summaries/2025-11-25/non-precedential/2025.11.25_25-2138.txt
+
+[info] Sending summary email to richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com...
+[ok] Summary email sent to: richard.lowry@lw.com, drew.roberts@lw.com, L&WFEDERALCIRCUITSUMMARIES@lw.com
+
+[ok] Processed 5 PDF(s)
+[2025-11-25 12:05:23] Check completed
+
+========================================
+[2025-11-25 12:06:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-25 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:06:02] Check completed
+
+========================================
+[2025-11-25 12:08:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-25 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:08:02] Check completed
+
+========================================
+[2025-11-25 12:10:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-25 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:10:02] Check completed
+
+========================================
+[2025-11-25 12:12:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-25 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:12:02] Check completed
+
+========================================
+[2025-11-25 12:14:01] Starting Federal Circuit check...
+[info] Authenticating with Gmail API...
+[ok] Successfully authenticated
+[info] Summaries already exist for 2025-11-25 (5 files)
+[info] Skipping processing to avoid duplicates (use --force to override)
+
+[ok] Processed 0 PDF(s)
+[2025-11-25 12:14:01] Check completed
+
