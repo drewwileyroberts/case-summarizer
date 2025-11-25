@@ -121,14 +121,13 @@ def _extract_structured_info(client: OpenAI, model: str, text: str) -> dict:
         dict with keys: is_patent_case, panel_judges, author_judge,
         case_summary, major_holdings
     """
-    # Use a larger sample for better context (up to 15000 chars)
-    sample = text[:15000]
+    sample = text
     
     structured_prompt = """You are analyzing a legal case document. Please answer the following questions and return your response in valid JSON format.
 
 Questions:
 1a. Is this a Fed. R. App. P. 42(b) dismissal? These are very short dismissal orders with no substantive opinion content - just a notice that the case was dismissed. (true/false)
-1b. Is this a Fed. R. App. P. Rule 36 affirmance? These are very short per curiam affirmances with minimal substantive content - just affirming the lower court decision. (true/false)
+1b. Is this a Fed. Cir. R. 36 summary affirmance? Answer true ONLY if ALL of the following are met: (1) The document explicitly cites "Fed. Cir. R. 36" or "Rule 36", (2) The entire substantive content is essentially just "AFFIRMED. See Fed. Cir. R. 36." (1-2 sentences max), (3) There is NO Background section, NO Discussion section, and NO substantive legal analysis. If the opinion contains any legal reasoning, case citations with analysis, or discussion of issues - even if it's per curiam and affirms - answer false. (true/false)
 2. Is this a patent-related case? (true/false) - Skip if question 1a or 1b is true
 3. What are the main patent law issues addressed in this case? Select up to 5 of the most important issues from the list below. Use ONLY the exact strings provided. Return empty array [] if not a patent case or if question 1a or 1b is true.
 
