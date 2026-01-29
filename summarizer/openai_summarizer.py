@@ -295,15 +295,11 @@ def summarize_text(
     else:
         print(f"[info] Using scraped metadata: date={opinion_date}, case={case_number}")
     
-    # Extract structured info
+    # Extract structured info (includes case_summary, so no separate summarization call needed)
     structured_info = _extract_structured_info(client, model, text)
 
-    # Generate summary from full text in one call
-    system_prompt = _load_prompt(prompt, prompt_file)
-    combined_summary = _call_model(client, model, system_prompt, text).strip()
-
     return SummarizationResult(
-        combined_summary=combined_summary,
+        combined_summary=structured_info['case_summary'],  # Use structured summary as fallback
         opinion_date=opinion_date,
         case_number=case_number,
         is_patent_case=structured_info['is_patent_case'],
