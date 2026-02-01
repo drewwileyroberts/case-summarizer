@@ -202,6 +202,9 @@ class CaseSummary:
     pdf_url: str | None = None
     # Structured fields from new decision tree approach
     is_patent_case: bool = False
+    is_copyright_case: bool = False  # Copyright infringement, ownership, fair use, DMCA, etc.
+    is_trade_secret_case: bool = False  # Trade secret misappropriation, DTSA, state trade secret laws
+    is_trademark_case: bool = False  # Trademark infringement, dilution, Lanham Act, etc.
     panel_judges: List[str] = None
     author_judge: str | None = None
     case_summary: str | None = None
@@ -240,21 +243,21 @@ def _markdown_to_html(text: str) -> str:
 
 def _format_judges_html(panel_judges: List[str], author_judge: str | None) -> str:
     """Format the judge panel with author underlined.
-    
+
     Args:
         panel_judges: List of judge names
         author_judge: Name of the authoring judge (to be underlined)
-        
+
     Returns:
         HTML string with judges formatted, author underlined
     """
     if not panel_judges:
         return ""
-    
+
     # Handle special cases
     if panel_judges == ["Per Curiam"] or panel_judges == ["Unsigned"]:
         return panel_judges[0]
-    
+
     # Format judges with author underlined
     formatted_judges = []
     for judge in panel_judges:
@@ -262,8 +265,22 @@ def _format_judges_html(panel_judges: List[str], author_judge: str | None) -> st
             formatted_judges.append(f"<u>{judge}</u>")
         else:
             formatted_judges.append(judge)
-    
+
     return ", ".join(formatted_judges)
+
+
+def _format_ip_types(summary: CaseSummary) -> str:
+    """Return comma-separated list of IP types for this case."""
+    types = []
+    if summary.is_patent_case:
+        types.append("Patent")
+    if summary.is_copyright_case:
+        types.append("Copyright")
+    if summary.is_trade_secret_case:
+        types.append("Trade Secret")
+    if summary.is_trademark_case:
+        types.append("Trademark")
+    return ", ".join(types)
 
 
 def send_summary_email(
@@ -299,12 +316,20 @@ def send_summary_email(
     # Normalize to_email to a list
     to_emails = [to_email] if isinstance(to_email, str) else to_email
     
-    # Categorize cases - Summary dispositions are separate from patent/non-patent
+    # Categorize cases - Summary dispositions are separate from IP/non-IP
     rule_42b_dismissals = [s for s in summaries if s.is_rule_42b_dismissal]
     rule_36_affirmances = [s for s in summaries if s.is_rule_36_affirmance]
-    patent_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance and s.is_patent_case and s.is_precedential]
-    patent_non_precedential = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance and s.is_patent_case and not s.is_precedential]
-    non_patent = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance and not s.is_patent_case]
+
+    # Filter out summary dispositions for substantive categorization
+    substantive = [s for s in summaries if not s.is_rule_42b_dismissal and not s.is_rule_36_affirmance]
+
+    # IP cases = any case where at least one IP type is true
+    ip_cases = [s for s in substantive if s.is_patent_case or s.is_copyright_case or s.is_trade_secret_case or s.is_trademark_case]
+    ip_precedential = [s for s in ip_cases if s.is_precedential]
+    ip_non_precedential = [s for s in ip_cases if not s.is_precedential]
+
+    # Non-IP cases = no IP type is true
+    non_ip = [s for s in substantive if not s.is_patent_case and not s.is_copyright_case and not s.is_trade_secret_case and not s.is_trademark_case]
     
     # Build HTML email body with inline styles (Outlook-friendly)
     date_str = email_date.strftime("%B %d, %Y")
@@ -318,104 +343,114 @@ def send_summary_email(
     </p>
 """
     
-    # Patent Cases Section
-    if patent_precedential or patent_non_precedential:
+    # IP Cases Section
+    if ip_precedential or ip_non_precedential:
         html_body += """
-    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">PATENT CASES</h2>
+    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">IP CASES</h2>
 """
-        
-        # Precedential Patent Cases
-        if patent_precedential:
+
+        # Precedential IP Cases
+        if ip_precedential:
             html_body += f"""
-    <h3 style="color: #006600; margin-top: 20px; margin-left: 15px;">Precedential ({len(patent_precedential)})</h3>
+    <h3 style="color: #006600; margin-top: 20px; margin-left: 15px;">Precedential ({len(ip_precedential)})</h3>
 """
-            for summary in patent_precedential:
+            for summary in ip_precedential:
                 case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
                 # Make case name a clickable link if PDF URL is available
                 if summary.pdf_url:
                     case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
                 else:
                     case_link = case_name
-                
+
+                # Format IP category line
+                ip_types_text = _format_ip_types(summary)
+                ip_types_line = f"<p style=\"margin: 5px 0;\"><strong>IP Category:</strong> {ip_types_text}</p>"
+
+                # Format patent law issues (only if this is a patent case)
+                issues_line = ""
+                if summary.is_patent_case and summary.patent_law_issues:
+                    issues_text = ", ".join(summary.patent_law_issues)
+                    issues_line = f"<p style=\"margin: 5px 0;\"><strong>Issues Addressed:</strong> {issues_text}</p>"
+
                 # Format judges with author underlined
                 judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
                 judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
-                
-                # Format patent law issues
-                issues_line = ""
-                if summary.patent_law_issues:
-                    issues_text = ", ".join(summary.patent_law_issues)
-                    issues_line = f"<p style=\"margin: 5px 0;\"><strong>Issues Addressed:</strong> {issues_text}</p>"
-                
+
                 # Use structured summary if available, fallback to summary_text
                 summary_content = summary.case_summary if summary.case_summary else summary.summary_text
                 summary_html = _markdown_to_html(summary_content)
-                
+
                 # Format holdings
                 holdings_html = ""
                 if summary.major_holdings:
                     holdings_html = f"<p style=\"margin: 10px 0 5px 0;\"><strong>Major Holdings:</strong></p><div style=\"line-height: 1.6; margin-left: 15px;\">{_markdown_to_html(summary.major_holdings)}</div>"
-                
+
                 html_body += f"""
     <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0 15px 20px; border-left: 4px solid #006600;">
         <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link}</p>
-        {judges_line}
+        {ip_types_line}
         {issues_line}
+        {judges_line}
         <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
         <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
         {holdings_html}
     </div>
 """
-        
-        # Non-Precedential Patent Cases
-        if patent_non_precedential:
+
+        # Non-Precedential IP Cases
+        if ip_non_precedential:
             html_body += f"""
-    <h3 style="color: #666; margin-top: 20px; margin-left: 15px;">Non-Precedential ({len(patent_non_precedential)})</h3>
+    <h3 style="color: #666; margin-top: 20px; margin-left: 15px;">Non-Precedential ({len(ip_non_precedential)})</h3>
 """
-            for summary in patent_non_precedential:
+            for summary in ip_non_precedential:
                 case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
                 # Make case name a clickable link if PDF URL is available
                 if summary.pdf_url:
                     case_link = f'<a href="{summary.pdf_url}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>'
                 else:
                     case_link = case_name
-                
+
+                # Format IP category line
+                ip_types_text = _format_ip_types(summary)
+                ip_types_line = f"<p style=\"margin: 5px 0;\"><strong>IP Category:</strong> {ip_types_text}</p>"
+
+                # Format patent law issues (only if this is a patent case)
+                issues_line = ""
+                if summary.is_patent_case and summary.patent_law_issues:
+                    issues_text = ", ".join(summary.patent_law_issues)
+                    issues_line = f"<p style=\"margin: 5px 0;\"><strong>Issues Addressed:</strong> {issues_text}</p>"
+
                 # Format judges with author underlined
                 judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
                 judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
-                
-                # Format patent law issues
-                issues_line = ""
-                if summary.patent_law_issues:
-                    issues_text = ", ".join(summary.patent_law_issues)
-                    issues_line = f"<p style=\"margin: 5px 0;\"><strong>Issues Addressed:</strong> {issues_text}</p>"
-                
+
                 # Use structured summary if available, fallback to summary_text
                 summary_content = summary.case_summary if summary.case_summary else summary.summary_text
                 summary_html = _markdown_to_html(summary_content)
-                
+
                 # Format holdings
                 holdings_html = ""
                 if summary.major_holdings:
                     holdings_html = f"<p style=\"margin: 10px 0 5px 0;\"><strong>Major Holdings:</strong></p><div style=\"line-height: 1.6; margin-left: 15px;\">{_markdown_to_html(summary.major_holdings)}</div>"
-                
+
                 html_body += f"""
     <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0 15px 20px; border-left: 4px solid #999;">
         <p style="font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">{case_link}</p>
-        {judges_line}
+        {ip_types_line}
         {issues_line}
+        {judges_line}
         <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
         <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
         {holdings_html}
     </div>
 """
     
-    # Non-Patent Cases Section
-    if non_patent:
+    # Non-IP Cases Section
+    if non_ip:
         html_body += f"""
-    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">NON-PATENT CASES ({len(non_patent)})</h2>
+    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">NON-IP CASES ({len(non_ip)})</h2>
 """
-        for summary in non_patent:
+        for summary in non_ip:
             case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
             # Make case name a clickable link if PDF URL is available
             if summary.pdf_url:
@@ -637,6 +672,9 @@ def process_court_emails(
                     pdf_url=pdf_url,
                     # Add structured fields
                     is_patent_case=result.is_patent_case,
+                    is_copyright_case=result.is_copyright_case,
+                    is_trade_secret_case=result.is_trade_secret_case,
+                    is_trademark_case=result.is_trademark_case,
                     panel_judges=result.panel_judges,
                     author_judge=result.author_judge,
                     case_summary=result.case_summary,
