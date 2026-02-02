@@ -8,7 +8,7 @@ from typing import Iterable, List, Optional
 from openai import OpenAI
 
 
-DEFAULT_MODEL = "gpt-4o"
+DEFAULT_MODEL = "gpt-5"
 
 
 @dataclass
@@ -61,14 +61,18 @@ def _create_client() -> OpenAI:
 
 
 def _call_model(client: OpenAI, model: str, system_prompt: str, user_text: str) -> str:
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
+    # GPT-5 models don't support custom temperature
+    kwargs = {
+        "model": model,
+        "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_text},
         ],
-        temperature=0.2,
-    )
+    }
+    if not model.startswith("gpt-5"):
+        kwargs["temperature"] = 0.2
+
+    response = client.chat.completions.create(**kwargs)
     return response.choices[0].message.content or ""
 
 
@@ -221,7 +225,7 @@ Possible patent law issues (use exact strings, select up to 5 most important):
 7. Which judges were on the panel? Return as an array of judge last names. If it's Per Curiam, return ["Per Curiam"]. If unsigned, return ["Unsigned"]. Return empty array [] if question 1a or 1b is true.
 8. Which judge authored the opinion? Return the last name of the authoring judge, or "Per Curiam" or "Unsigned" if applicable. Return null if you cannot determine or if question 1a or 1b is true.
 9. Provide a 4-5 sentence summary of the case. Focus on the key facts, legal issues, and outcome. Return empty string "" if question 1a or 1b is true.
-10. What are the major holdings from this case? A major holding can be either: (a) a broad legal principle or rule that could apply to future cases, or (b) the case's disposition with its substantive reasoning (e.g., "Affirmed that the patent was invalid for lack of written description"). Many cases have only 1-2 major holdings, and some have none. Return 0-3 holdings only. Be very selective—do not include bare outcomes without reasoning (e.g., "Plaintiff failed to prove infringement") or generic procedural statements (e.g., "The district court was correct"). Format each holding on a new line like: "1. [holding text]\\n2. [holding text]\\n3. [holding text]". Return empty string "" if question 1a or 1b is true or if no major holdings.
+10. Write 0-3 headnote-style summaries of the court's key rulings (1-2 is typical; 0 and 3 are rare). Each headnote should capture a specific legal conclusion the court reached on a disputed issue—the kind of point a practitioner would highlight when telling a colleague about this case. Keep each under 25 words. Only include affirmative rulings. Do NOT include: routine costs/fees allocations, standard procedural language, or issues the court declined to decide. Format on new lines: "1. [text]\\n2. [text]\\n3. [text]". Return empty string "" if question 1a or 1b is true or if none.
 
 Return ONLY valid JSON in this exact format (no additional text):
 {
