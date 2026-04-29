@@ -66,6 +66,9 @@ def authenticate_gmail(credentials_path: str = "credentials.json", token_path: s
     
     return build("gmail", "v1", credentials=creds)
 
+# Sender address used as To: when sending BCC-only (so recipients appear only on BCC)
+SENDER_EMAIL = "fed.cir.summaries@gmail.com"
+
 
 def get_email_body(message: dict) -> str:
     """
@@ -684,15 +687,22 @@ def process_court_emails(
                     patent_law_issues=result.patent_law_issues,
                 ))
     
-    # Send summary email if email_to is provided
-    if email_to and summaries:
-        email_list = [email_to] if isinstance(email_to, str) else email_to
-        bcc_list = [email_bcc] if isinstance(email_bcc, str) else (email_bcc or [])
+    # Send summary email if we have summaries and at least one of email_to or email_bcc
+    if (email_to or email_bcc) and summaries:
+        if email_to:
+            actual_to = email_to
+            actual_bcc = email_bcc
+        else:
+            # BCC-only: use sending account as To so recipients appear only on BCC
+            actual_to = SENDER_EMAIL
+            actual_bcc = email_bcc
+        email_list = [actual_to] if isinstance(actual_to, str) else actual_to
+        bcc_list = [actual_bcc] if isinstance(actual_bcc, str) else (actual_bcc or [])
         log_parts = [f"to: {', '.join(email_list)}"]
         if bcc_list:
             log_parts.append(f"bcc: {', '.join(bcc_list)}")
         print(f"\n[info] Sending summary email ({'; '.join(log_parts)})...")
-        send_summary_email(service, email_to, summaries, search_date, bcc_email=email_bcc)
+        send_summary_email(service, actual_to, summaries, search_date, bcc_email=actual_bcc)
     
     return pdf_count
 
