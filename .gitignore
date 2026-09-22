@@ -63,3 +63,6 @@ Thumbs.db
 *.key
 *.pem
 *_secret.txt
+
+# Cron logs (kept locally, not in git)
+logs/*.log
