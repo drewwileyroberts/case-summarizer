@@ -17,7 +17,8 @@ echo "========================================" >> logs/cron.log
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Federal Circuit check..." >> logs/cron.log
 
 # Run the gmail checker with multiple email recipients
-python3 -m summarizer.gmail_cli \
+# (-u: unbuffered, so log lines land in order even when runs overlap)
+python3 -u -m summarizer.gmail_cli \
     --email-bcc richard.lowry@lw.com drew.roberts@lw.com kylerobertsnc@gmail.com Brian.weissenberg@geaerospace.com \
     2>&1 | tee -a logs/cron.log
 

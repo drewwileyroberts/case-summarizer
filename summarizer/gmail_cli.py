@@ -77,7 +77,17 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Force reprocessing even if summaries already exist for this date",
+        help="Force reprocessing and resending even if the email for this date was already sent",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Do everything except send: write the email HTML to <summary-dir>/<date>/email_preview.html",
+    )
+    parser.add_argument(
+        "--subject-prefix",
+        default="",
+        help='Text prepended to the email subject, e.g. "[TEST] "',
     )
 
     args = parser.parse_args(argv)
@@ -106,6 +116,8 @@ def main(argv: List[str] | None = None) -> int:
         email_to=args.email_to,
         email_bcc=args.email_bcc,
         force=args.force,
+        dry_run=args.dry_run,
+        subject_prefix=args.subject_prefix,
     )
 
     print(f"\n[ok] Processed {pdf_count} PDF(s)")

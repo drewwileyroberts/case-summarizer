@@ -25,6 +25,7 @@ class SummarizationResult:
     author_judge: Optional[str] = None  # The judge who authored the opinion
     case_summary: Optional[str] = None  # 4-5 sentence summary
     major_holdings: Optional[str] = None  # Major holdings from the case
+    final_disposition: Optional[str] = None  # Final appellate disposition
     is_rule_42b_dismissal: bool = False  # Fed. R. App. P. 42(b) dismissal (no opinion content)
     is_rule_36_affirmance: bool = False  # Fed. R. App. P. Rule 36 affirmance (minimal opinion content)
     patent_law_issues: List[str] = None  # List of patent law issues addressed (for patent cases only)
@@ -123,6 +124,7 @@ def _extract_structured_info(client: OpenAI, model: str, text: str) -> dict:
     3. Which judge authored the opinion?
     4. What is a 4-5 sentence summary?
     5. What are the major holdings?
+    6. What is the final disposition?
     
     Returns:
         dict with keys: is_patent_case, panel_judges, author_judge,
@@ -142,90 +144,105 @@ Questions:
 6. What are the main patent law issues addressed in this case? Select up to 5 of the most important issues from the list below. Use ONLY the exact strings provided. Return empty array [] if not a patent case or if question 1a or 1b is true.
 
 Possible patent law issues (use exact strings, select up to 5 most important):
-- patent-eligible subject matter (§ 101)
+- patent-eligible subject matter (Section 101)
 - printed matter doctrine
-- natural law or abstract idea (Alice/Mayo) (§ 101)
-- anticipation (§ 102)
-- obviousness (§ 103)
+- natural law or abstract idea (Alice/Mayo) (Section 101)
+- anticipation (Section 102)
+- obviousness (Section 103)
 - obviousness-type double patenting
-- priority or entitlement to priority (§ 119 or § 120)
-- written description (§ 112(a))
-- enablement (§ 112(a))
-- definiteness (§ 112(b))
-- utility (§ 101)
-- best mode (§ 112(a))
-- public use or on-sale bar (§ 102)
+- priority or entitlement to priority (Section 119 or Section 120)
+- written description (Section 112(a))
+- enablement (Section 112(a))
+- definiteness (Section 112(b))
+- utility (Section 101)
+- best mode (Section 112(a))
+- public use or on-sale bar (Section 102)
 - experimental use exception
-- derivation or inventorship (§ 116 or § 256)
-- joint inventorship (§ 116)
+- derivation or inventorship (Section 116 or Section 256)
+- joint inventorship (Section 116)
 - claim construction
-- means-plus-function interpretation (§ 112(f))
+- means-plus-function interpretation (Section 112(f))
 - claim scope disavowal or disclaimer
 - prosecution-history estoppel
 - intrinsic vs extrinsic evidence
 - claim preamble limitation
 - claim differentiation
-- literal infringement (§ 271(a))
+- literal infringement (Section 271(a))
 - doctrine of equivalents
-- induced infringement (§ 271(b))
-- contributory infringement (§ 271(c))
-- divided or joint infringement (§ 271(a))
-- importation or product-by-process (§ 271(g))
+- induced infringement (Section 271(b))
+- contributory infringement (Section 271(c))
+- divided or joint infringement (Section 271(a))
+- importation or product-by-process (Section 271(g))
 - willful infringement
-- indirect infringement knowledge or intent (§ 271(b) or (c))
-- extraterritoriality (§ 271(f))
+- indirect infringement knowledge or intent (Section 271(b) or (c))
+- extraterritoriality (Section 271(f))
 - inequitable conduct
 - unclean hands or litigation misconduct
 - prosecution laches
 - equitable estoppel
-- intervening rights (§ 252 or § 307(b))
+- intervening rights (Section 252 or Section 307(b))
 - patent exhaustion or first-sale doctrine
-- prior user rights (§ 273)
+- prior user rights (Section 273)
 - lost profits
-- reasonable royalty (§ 284)
-- apportionment (§ 284)
-- entire market value rule (§ 284)
-- enhanced damages (§ 284)
-- injunctions (§ 283)
-- ongoing royalties (§ 283 or § 284)
-- attorneys' fees (§ 285)
+- reasonable royalty (Section 284)
+- apportionment (Section 284)
+- entire market value rule (Section 284)
+- enhanced damages (Section 284)
+- injunctions (Section 283)
+- ongoing royalties (Section 283 or Section 284)
+- attorneys' fees (Section 285)
 - pre- or post-judgment interest
 - subject-matter jurisdiction
-- personal jurisdiction or venue (§ 1400(b))
+- personal jurisdiction or venue (Section 1400(b))
 - standing
 - real party in interest or privity
 - post-judgment motions (Rule 54/59/60)
 - cross-appeals or appellate jurisdiction
 - standard of review
-- inter partes review (IPR) (§ 311–§ 319)
-- post-grant review (PGR) or covered business method (CBM) (§ 321–§ 329)
-- estoppel (§ 315(e))
-- institution decisions or SAS issues (§ 314)
-- obviousness in PTAB context (§ 103)
-- real-party-in-interest challenges (§ 312(a)(2))
-- director review or rehearing (§ 6 or § 141)
-- reexamination or reissue (§ 251–§ 257)
-- design patent ornamentality or functionality (§ 171)
-- design patent anticipation or obviousness (§ 102 or § 103)
-- article of manufacture definition (§ 171)
-- plant patent requirements (§ 161)
-- ITC § 337 actions (19 U.S.C. § 1337)
-- government-use (§ 1498)
-- export or import infringement (§ 271(f) or (g))
-- assignment or ownership disputes (§ 261)
+- inter partes review (IPR) (Sections 311-319)
+- post-grant review (PGR) or covered business method (CBM) (Sections 321-329)
+- estoppel (Section 315(e))
+- institution decisions or SAS issues (Section 314)
+- obviousness in PTAB context (Section 103)
+- real-party-in-interest challenges (Section 312(a)(2))
+- director review or rehearing (Section 6 or Section 141)
+- reexamination or reissue (Sections 251-257)
+- design patent ornamentality or functionality (Section 171)
+- design patent anticipation or obviousness (Section 102 or Section 103)
+- article of manufacture definition (Section 171)
+- plant patent requirements (Section 161)
+- ITC Section 337 actions (19 U.S.C. Section 1337)
+- government-use (Section 1498)
+- export or import infringement (Section 271(f) or (g))
+- assignment or ownership disputes (Section 261)
 - licenses or contractual interpretation
 - covenant not to sue
 - FRAND or standard-essential patents
 - attorney-client privilege or waiver
 - sanctions (Rule 11)
 - claim preclusion or res judicata
-- reissue/reexamination effect on litigation (§ 251–§ 257)
+- reissue/reexamination effect on litigation (Sections 251-257)
 - constitutional issues
 
 7. Which judges were on the panel? Return as an array of judge last names. If it's Per Curiam, return ["Per Curiam"]. If unsigned, return ["Unsigned"]. Return empty array [] if question 1a or 1b is true.
 8. Which judge authored the opinion? Return the last name of the authoring judge, or "Per Curiam" or "Unsigned" if applicable. Return null if you cannot determine or if question 1a or 1b is true.
 9. Provide a 4-5 sentence summary of the case. Focus on the key facts, legal issues, and outcome. Return empty string "" if question 1a or 1b is true.
-10. Write 0-3 headnote-style summaries of the court's key rulings (1-2 is typical; 0 and 3 are rare). Each headnote should capture a specific legal conclusion the court reached on a disputed issue—the kind of point a practitioner would highlight when telling a colleague about this case. Keep each under 25 words. Only include affirmative rulings. Do NOT include: routine costs/fees allocations, standard procedural language, or issues the court declined to decide. Format on new lines: "1. [text]\\n2. [text]\\n3. [text]". Return empty string "" if question 1a or 1b is true or if none.
+10. Write 0-3 headnote-style summaries of the court's key rulings (1-2 is typical; 0 and 3 are rare). Each headnote should capture a specific legal conclusion the court reached on a disputed issue - the kind of point a practitioner would highlight when telling a colleague about this case. Keep each under 25 words. Only include affirmative rulings. Do NOT include: routine costs/fees allocations, standard procedural language, or issues the court declined to decide. Format on new lines: "1. [text]\\n2. [text]\\n3. [text]". Return empty string "" if question 1a or 1b is true or if none.
+11. What is the court's final disposition? Use one of the exact strings below when possible. If none fit, use "Other: [short disposition]". Return empty string "" if question 1a or 1b is true.
+
+Final disposition options:
+- Affirmed
+- Reversed
+- Vacated
+- Remanded
+- Dismissed
+- Affirmed in Part and Reversed in Part
+- Affirmed in Part, Reversed in Part, and Remanded
+- Affirmed in Part, Vacated in Part, and Remanded
+- Reversed and Remanded
+- Vacated and Remanded
+- Dismissed in Part
+- Other: [short disposition]
 
 Return ONLY valid JSON in this exact format (no additional text):
 {
@@ -239,7 +256,8 @@ Return ONLY valid JSON in this exact format (no additional text):
   "panel_judges": ["Judge1", "Judge2", "Judge3"] or [],
   "author_judge": "Judge1" or null,
   "case_summary": "4-5 sentence summary here" or "",
-  "major_holdings": "1. [holding text]\\n2. [holding text]\\n3. [holding text]" or ""
+  "major_holdings": "1. [holding text]\\n2. [holding text]\\n3. [holding text]" or "",
+  "final_disposition": "Affirmed" or "Reversed and Remanded" or "Other: [short disposition]" or ""
 }"""
     
     response = _call_model(client, model, structured_prompt, sample)
@@ -269,24 +287,12 @@ Return ONLY valid JSON in this exact format (no additional text):
             'author_judge': data.get('author_judge'),
             'case_summary': data.get('case_summary', ''),
             'major_holdings': data.get('major_holdings', ''),
+            'final_disposition': str(data.get('final_disposition') or '').strip(),
         }
     except (json.JSONDecodeError, ValueError) as e:
-        print(f"[warn] Failed to parse structured JSON response: {e}")
         print(f"[warn] Raw response: {response[:200]}...")
-        # Return default values
-        return {
-            'is_rule_42b_dismissal': False,
-            'is_rule_36_affirmance': False,
-            'is_patent_case': False,
-            'is_copyright_case': False,
-            'is_trade_secret_case': False,
-            'is_trademark_case': False,
-            'patent_law_issues': [],
-            'panel_judges': [],
-            'author_judge': None,
-            'case_summary': '',
-            'major_holdings': '',
-        }
+        # Raise rather than returning blank defaults, which would misfile the case as non-IP
+        raise ValueError(f"Failed to parse structured JSON response: {e}") from e
 
 
 def summarize_text(
@@ -329,6 +335,7 @@ def summarize_text(
         author_judge=structured_info['author_judge'],
         case_summary=structured_info['case_summary'],
         major_holdings=structured_info['major_holdings'],
+        final_disposition=structured_info['final_disposition'],
         is_rule_42b_dismissal=structured_info['is_rule_42b_dismissal'],
         is_rule_36_affirmance=structured_info['is_rule_36_affirmance'],
         patent_law_issues=structured_info['patent_law_issues'],

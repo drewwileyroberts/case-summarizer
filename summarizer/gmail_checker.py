@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import base64
+import fcntl
+import json
 import os
 import re
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, date, timedelta
 from email.mime.text import MIMEText
@@ -14,7 +17,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-from .uscourts_scraper import extract_links_from_text, process_uscourts_link
+from .uscourts_scraper import doc_id_from_url, extract_links_from_text, parse_email_entries, process_uscourts_link
 from .pdf_utils import extract_text_from_pdf
 from .openai_summarizer import summarize_text
 
@@ -212,10 +215,13 @@ class CaseSummary:
     author_judge: str | None = None
     case_summary: str | None = None
     major_holdings: str | None = None
+    final_disposition: str | None = None
     is_rule_42b_dismissal: bool = False  # Fed. R. App. P. 42(b) dismissal (no opinion content)
     is_rule_36_affirmance: bool = False  # Fed. R. App. P. Rule 36 affirmance (minimal opinion content)
     patent_law_issues: List[str] = None  # List of patent law issues addressed (for patent cases only)
-    
+    landing_url: str | None = None
+    error: str | None = None  # Set when the case could not be summarized; listed for manual review
+
     def __post_init__(self):
         # Initialize lists to empty if None
         if self.panel_judges is None:
@@ -286,39 +292,31 @@ def _format_ip_types(summary: CaseSummary) -> str:
     return ", ".join(types)
 
 
-def send_summary_email(
-    service,
-    to_email: str | List[str],
-    summaries: List[CaseSummary],
-    email_date: date,
-    bcc_email: str | List[str] | None = None,
-) -> bool:
+def _format_final_disposition_line(final_disposition: str | None) -> str:
+    """Return the email metadata line for a case's final disposition."""
+    if not final_disposition:
+        return ""
+
+    disposition_html = final_disposition.replace("<", "&lt;").replace(">", "&gt;")
+    return f'<p style="margin: 5px 0 0 0;"><strong>Final Disposition:</strong> {disposition_html}</p>'
+
+
+def build_summary_email_html(summaries: List[CaseSummary], email_date: date) -> str:
     """
-    Send an email with all case summaries in structured format.
-    
+    Build the HTML body of the summary email.
+
     Structure:
-    - Patent Cases
+    - Cases that could not be summarized (links only, for manual review)
+    - IP Cases
       - Precedential (with full details: judges, summary, holdings)
       - Non-Precedential (with full details: judges, summary, holdings)
-    - Non-Patent Cases (just case cite with link)
-    
-    Args:
-        service: Authenticated Gmail API service
-        to_email: Email address(es) to send to (string or list of strings)
-        bcc_email: Email address(es) to BCC (string or list of strings, optional)
-        summaries: List of CaseSummary objects
-        email_date: Date of the opinions
-        
-    Returns:
-        True if email sent successfully, False otherwise
+    - Non-IP Cases (just case cite with link)
+    - Summary Dispositions
     """
-    if not summaries:
-        print("[warn] No summaries to send")
-        return False
-    
-    # Normalize to_email to a list
-    to_emails = [to_email] if isinstance(to_email, str) else to_email
-    
+    # Cases that failed are listed separately so they are never silently dropped
+    failed = [s for s in summaries if s.error]
+    summaries = [s for s in summaries if not s.error]
+
     # Categorize cases - Summary dispositions are separate from IP/non-IP
     rule_42b_dismissals = [s for s in summaries if s.is_rule_42b_dismissal]
     rule_36_affirmances = [s for s in summaries if s.is_rule_36_affirmance]
@@ -345,7 +343,21 @@ def send_summary_email(
         <strong>Note:</strong> The below summaries have been generated using AI and have not been reviewed by an attorney. Read and analyze any case before relying on it. Do not rely on the AI summary.
     </p>
 """
-    
+
+    # Failed Cases Section
+    if failed:
+        html_body += f"""
+    <h2 style="color: #0066cc; margin-top: 30px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">NOT SUMMARIZED ({len(failed)})</h2>
+    <p style="margin: 10px 0 10px 20px; color: #666;">These were released today but could not be fetched and summarized automatically. Links are provided for direct review.</p>
+"""
+        for summary in failed:
+            case_name = summary.case_name.replace("<", "&lt;").replace(">", "&gt;")
+            link = summary.pdf_url or summary.landing_url
+            case_link = f'<a href="{link}" style="color: #0066cc; text-decoration: underline;">{case_name}</a>' if link else case_name
+            html_body += f"""
+    <p style="margin: 10px 0 10px 20px;">{case_link} <em style="color: #666;">({summary.error[0].lower() + summary.error[1:]})</em></p>
+"""
+
     # IP Cases Section
     if ip_precedential or ip_non_precedential:
         html_body += """
@@ -378,6 +390,7 @@ def send_summary_email(
                 # Format judges with author underlined
                 judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
                 judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
+                disposition_line = _format_final_disposition_line(summary.final_disposition)
 
                 # Use structured summary if available, fallback to summary_text
                 summary_content = summary.case_summary if summary.case_summary else summary.summary_text
@@ -394,6 +407,7 @@ def send_summary_email(
         {ip_types_line}
         {issues_line}
         {judges_line}
+        {disposition_line}
         <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
         <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
         {holdings_html}
@@ -426,6 +440,7 @@ def send_summary_email(
                 # Format judges with author underlined
                 judges_html = _format_judges_html(summary.panel_judges, summary.author_judge)
                 judges_line = f"<p style=\"margin: 5px 0;\"><strong>Judges:</strong> {judges_html}</p>" if judges_html else ""
+                disposition_line = _format_final_disposition_line(summary.final_disposition)
 
                 # Use structured summary if available, fallback to summary_text
                 summary_content = summary.case_summary if summary.case_summary else summary.summary_text
@@ -442,6 +457,7 @@ def send_summary_email(
         {ip_types_line}
         {issues_line}
         {judges_line}
+        {disposition_line}
         <p style="margin: 10px 0 5px 0;"><strong>Summary:</strong></p>
         <div style="line-height: 1.6; margin-left: 15px;">{summary_html}</div>
         {holdings_html}
@@ -507,14 +523,48 @@ def send_summary_email(
 </body>
 </html>
 """
-    
+    return html_body
+
+
+def send_summary_email(
+    service,
+    to_email: str | List[str],
+    summaries: List[CaseSummary],
+    email_date: date,
+    bcc_email: str | List[str] | None = None,
+    subject_prefix: str = "",
+) -> bool:
+    """
+    Send an email with all case summaries in structured format.
+
+    Args:
+        service: Authenticated Gmail API service
+        to_email: Email address(es) to send to (string or list of strings)
+        summaries: List of CaseSummary objects
+        email_date: Date of the opinions
+        bcc_email: Email address(es) to BCC (string or list of strings, optional)
+        subject_prefix: Text prepended to the subject (e.g. "[TEST] ")
+
+    Returns:
+        True if email sent successfully, False otherwise
+    """
+    if not summaries:
+        print("[warn] No summaries to send")
+        return False
+
+    # Normalize to_email to a list
+    to_emails = [to_email] if isinstance(to_email, str) else to_email
+
+    html_body = build_summary_email_html(summaries, email_date)
+    date_str = email_date.strftime("%B %d, %Y")
+
     # Create email message with HTML
     message = MIMEText(html_body, "html")
     message["to"] = ", ".join(to_emails)
     if bcc_email:
         bcc_emails = [bcc_email] if isinstance(bcc_email, str) else bcc_email
         message["bcc"] = ", ".join(bcc_emails)
-    message["subject"] = f"Federal Circuit Opinions - {date_str}"
+    message["subject"] = f"{subject_prefix}Federal Circuit Opinions - {date_str}"
     
     # Encode message
     raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode("utf-8")
@@ -536,6 +586,90 @@ def send_summary_email(
         return False
 
 
+# Written after the summary email for a date is successfully sent; its presence
+# means cron runs for that date skip processing (use --force to override).
+SENT_MARKER_NAME = ".sent"
+
+
+@contextmanager
+def _run_lock(lock_path: Path):
+    """Yield True if we acquired an exclusive, non-blocking lock (so overlapping cron runs exit)."""
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(lock_path, "w") as fp:
+        try:
+            fcntl.flock(fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            yield False
+            return
+        yield True
+
+
+def _summarize_case(doc, date_summary_dir: Path, prompt_file: str | None) -> CaseSummary:
+    """Summarize one downloaded case. Failures are recorded on the returned CaseSummary's `error`."""
+    summary = CaseSummary(
+        case_name=doc.case_name,
+        is_precedential=doc.is_precedential,
+        summary_text="",
+        opinion_date=doc.opinion_date,
+        case_number=doc.case_number,
+        pdf_url=doc.pdf_url,
+        landing_url=doc.landing_url,
+    )
+    if doc.error:
+        summary.error = doc.error
+        return summary
+
+    pdf_path = doc.pdf_path
+    try:
+        # Extract text from PDF
+        print(f"[info] Extracting text from: {pdf_path.name}")
+        text = extract_text_from_pdf(str(pdf_path))
+        if not text.strip():
+            summary.error = "Unable to read the text of the opinion"
+            return summary
+
+        # Summarize
+        print(f"[info] Summarizing: {pdf_path.name}")
+        result = summarize_text(text, prompt_file=prompt_file, opinion_date=doc.opinion_date, case_number=doc.case_number)
+    except Exception as e:
+        print(f"[error] Summarization failed for {doc.case_name}: {type(e).__name__}: {e}")
+        summary.error = "Unable to generate the AI summary"
+        return summary
+
+    # Generate output filename
+    if result.opinion_date and result.case_number:
+        formatted_date = result.opinion_date.replace("-", ".")
+        filename = f"{formatted_date}_{result.case_number}.txt"
+    else:
+        filename = f"{pdf_path.stem}-summary.txt"
+
+    # Organize into date/precedential/non-precedential subdirectories
+    subdir = date_summary_dir / ("precedential" if doc.is_precedential else "non-precedential")
+    subdir.mkdir(parents=True, exist_ok=True)
+
+    # Write summary
+    summary_path = subdir / filename
+    summary_path.write_text(result.combined_summary, encoding="utf-8")
+    print(f"[ok] Wrote summary: {summary_path}")
+
+    summary.summary_text = result.combined_summary
+    summary.opinion_date = result.opinion_date
+    summary.case_number = result.case_number
+    summary.is_patent_case = result.is_patent_case
+    summary.is_copyright_case = result.is_copyright_case
+    summary.is_trade_secret_case = result.is_trade_secret_case
+    summary.is_trademark_case = result.is_trademark_case
+    summary.panel_judges = result.panel_judges
+    summary.author_judge = result.author_judge
+    summary.case_summary = result.case_summary
+    summary.major_holdings = result.major_holdings
+    summary.final_disposition = result.final_disposition
+    summary.is_rule_42b_dismissal = result.is_rule_42b_dismissal
+    summary.is_rule_36_affirmance = result.is_rule_36_affirmance
+    summary.patent_law_issues = result.patent_law_issues
+    return summary
+
+
 def process_court_emails(
     service,
     sender: str | List[str] = "uscourts@updates.uscourts.gov",
@@ -546,6 +680,8 @@ def process_court_emails(
     email_to: str | List[str] | None = None,
     email_bcc: str | List[str] | None = None,
     force: bool = False,
+    dry_run: bool = False,
+    subject_prefix: str = "",
 ) -> int:
     """
     Complete workflow: search emails, download PDFs, generate summaries, and send email.
@@ -559,10 +695,12 @@ def process_court_emails(
         prompt_file: Optional path to prompt file for summarization
         email_to: Email address(es) to send summary to (string or list of strings, optional)
         email_bcc: Email address(es) to BCC (string or list of strings, optional)
-        force: Force reprocessing even if summaries already exist (default: False)
+        force: Reprocess and resend even if the email for this date was already sent (default: False)
+        dry_run: Write the email HTML to a preview file instead of sending it (default: False)
+        subject_prefix: Text prepended to the email subject (e.g. "[TEST] ")
         
     Returns:
-        Number of PDFs processed
+        Number of PDFs successfully summarized
     """
     if pdf_dir is None:
         pdf_dir = Path("pdfs")
@@ -570,21 +708,42 @@ def process_court_emails(
         summary_dir = Path("summaries")
     if search_date is None:
         search_date = date.today()
-    
+
+    with _run_lock(summary_dir / ".run.lock") as acquired:
+        if not acquired:
+            print("[info] Another run is already in progress; exiting")
+            return 0
+        return _process_court_emails_locked(
+            service, sender, search_date, pdf_dir, summary_dir, prompt_file,
+            email_to, email_bcc, force, dry_run, subject_prefix,
+        )
+
+
+def _process_court_emails_locked(
+    service,
+    sender: str | List[str],
+    search_date: date,
+    pdf_dir: Path,
+    summary_dir: Path,
+    prompt_file: str | None,
+    email_to: str | List[str] | None,
+    email_bcc: str | List[str] | None,
+    force: bool,
+    dry_run: bool,
+    subject_prefix: str,
+) -> int:
     pdf_dir.mkdir(parents=True, exist_ok=True)
     
     # Create date-specific summary directory (YYYY-MM-DD)
     date_str = search_date.strftime("%Y-%m-%d")
     date_summary_dir = summary_dir / date_str
+    sent_marker = date_summary_dir / SENT_MARKER_NAME
     
-    # Check if we've already processed opinions for this date (idempotency)
-    if not force and date_summary_dir.exists():
-        # Check if there are any summary files
-        existing_summaries = list(date_summary_dir.rglob("*.txt"))
-        if existing_summaries:
-            print(f"[info] Summaries already exist for {date_str} ({len(existing_summaries)} files)")
-            print(f"[info] Skipping processing to avoid duplicates (use --force to override)")
-            return 0
+    # Idempotency: skip if the summary email for this date has already gone out
+    if not force and sent_marker.exists():
+        print(f"[info] Summary email already sent for {date_str} ({sent_marker})")
+        print(f"[info] Skipping processing to avoid duplicates (use --force to override)")
+        return 0
     
     date_summary_dir.mkdir(parents=True, exist_ok=True)
     
@@ -599,8 +758,8 @@ def process_court_emails(
     if not emails:
         return 0
     
-    pdf_count = 0
-    summaries = []  # Collect summaries for email
+    summaries = []  # Collect summaries (and failures) for email
+    seen_doc_ids = set()  # The same case can appear in more than one email
     
     # Process each email
     for i, email in enumerate(emails, 1):
@@ -613,8 +772,9 @@ def process_court_emails(
             print("[warn] Empty email body, skipping")
             continue
         
-        # Extract uscourts.gov links
+        # Extract uscourts.gov links, plus each case's name/status as listed in the email
         links = extract_links_from_text(body)
+        entries = parse_email_entries(body)
         
         if not links:
             print("[warn] No uscourts.gov links found in email")
@@ -624,85 +784,63 @@ def process_court_emails(
         
         # Process each link
         for link in links:
-            # Download PDF from landing page and get metadata
-            pdf_path, is_precedential, case_name, pdf_url, opinion_date, case_number = process_uscourts_link(link, pdf_dir)
-            
-            if not pdf_path:
+            doc_id = doc_id_from_url(link)
+            if doc_id and doc_id in seen_doc_ids:
+                print(f"[info] Skipping duplicate link: {link}")
                 continue
+            seen_doc_ids.add(doc_id)
             
-            # Extract text from PDF
-            print(f"[info] Extracting text from: {pdf_path.name}")
-            text = extract_text_from_pdf(str(pdf_path))
-            
-            if not text.strip():
-                print(f"[warn] No text extracted from: {pdf_path.name}")
-                continue
-            
-            # Summarize
-            print(f"[info] Summarizing: {pdf_path.name}")
-            result = summarize_text(text, prompt_file=prompt_file, opinion_date=opinion_date, case_number=case_number)
-            
-            # Generate output filename
-            if result.opinion_date and result.case_number:
-                formatted_date = result.opinion_date.replace("-", ".")
-                filename = f"{formatted_date}_{result.case_number}.txt"
-            else:
-                filename = f"{pdf_path.stem}-summary.txt"
-            
-            # Organize into date/precedential/non-precedential subdirectories
-            if is_precedential:
-                subdir = date_summary_dir / "precedential"
-            else:
-                subdir = date_summary_dir / "non-precedential"
-            
-            subdir.mkdir(parents=True, exist_ok=True)
-            
-            # Write summary
-            summary_path = subdir / filename
-            summary_path.write_text(result.combined_summary, encoding="utf-8")
-            
-            print(f"[ok] Wrote summary: {summary_path}")
-            pdf_count += 1
-            
-            # Add to summaries list for email
-            if case_name:
-                summaries.append(CaseSummary(
-                    case_name=case_name,
-                    is_precedential=is_precedential,
-                    summary_text=result.combined_summary,
-                    opinion_date=result.opinion_date,
-                    case_number=result.case_number,
-                    pdf_url=pdf_url,
-                    # Add structured fields
-                    is_patent_case=result.is_patent_case,
-                    is_copyright_case=result.is_copyright_case,
-                    is_trade_secret_case=result.is_trade_secret_case,
-                    is_trademark_case=result.is_trademark_case,
-                    panel_judges=result.panel_judges,
-                    author_judge=result.author_judge,
-                    case_summary=result.case_summary,
-                    major_holdings=result.major_holdings,
-                    is_rule_42b_dismissal=result.is_rule_42b_dismissal,
-                    is_rule_36_affirmance=result.is_rule_36_affirmance,
-                    patent_law_issues=result.patent_law_issues,
-                ))
+            doc = process_uscourts_link(link, pdf_dir, entries.get(doc_id))
+            summary = _summarize_case(doc, date_summary_dir, prompt_file)
+            if summary.error:
+                print(f"[error] {summary.case_name}: {summary.error}")
+            summaries.append(summary)
     
-    # Send summary email if we have summaries and at least one of email_to or email_bcc
-    if (email_to or email_bcc) and summaries:
-        if email_to:
-            actual_to = email_to
-            actual_bcc = email_bcc
+    failures = [s for s in summaries if s.error]
+    pdf_count = len(summaries) - len(failures)
+    if failures:
+        print(f"\n[warn] {len(failures)} case(s) could not be summarized and will be listed for manual review:")
+        for s in failures:
+            print(f"[warn]   {s.case_name}: {s.error}")
+    
+    if not summaries:
+        return pdf_count
+    
+    if not (email_to or email_bcc):
+        if dry_run:
+            email_to = []
         else:
-            # BCC-only: use sending account as To so recipients appear only on BCC
-            actual_to = SENDER_EMAIL
-            actual_bcc = email_bcc
-        email_list = [actual_to] if isinstance(actual_to, str) else actual_to
-        bcc_list = [actual_bcc] if isinstance(actual_bcc, str) else (actual_bcc or [])
-        log_parts = [f"to: {', '.join(email_list)}"]
-        if bcc_list:
-            log_parts.append(f"bcc: {', '.join(bcc_list)}")
-        print(f"\n[info] Sending summary email ({'; '.join(log_parts)})...")
-        send_summary_email(service, actual_to, summaries, search_date, bcc_email=actual_bcc)
+            print("\n[info] No recipients given; not sending an email")
+            return pdf_count
+    
+    if email_to:
+        actual_to = email_to
+        actual_bcc = email_bcc
+    else:
+        # BCC-only: use sending account as To so recipients appear only on BCC
+        actual_to = SENDER_EMAIL
+        actual_bcc = email_bcc
+    email_list = [actual_to] if isinstance(actual_to, str) else actual_to
+    bcc_list = [actual_bcc] if isinstance(actual_bcc, str) else (actual_bcc or [])
+    log_parts = [f"to: {', '.join(email_list)}"]
+    if bcc_list:
+        log_parts.append(f"bcc: {', '.join(bcc_list)}")
+    
+    if dry_run:
+        preview_path = date_summary_dir / "email_preview.html"
+        preview_path.write_text(build_summary_email_html(summaries, search_date), encoding="utf-8")
+        print(f"\n[dry-run] Email NOT sent (would have sent {'; '.join(log_parts)})")
+        print(f"[dry-run] Preview written to: {preview_path}")
+        return pdf_count
+    
+    print(f"\n[info] Sending summary email ({'; '.join(log_parts)})...")
+    if send_summary_email(service, actual_to, summaries, search_date, bcc_email=actual_bcc, subject_prefix=subject_prefix):
+        sent_marker.write_text(json.dumps({
+            "sent_at": datetime.now().isoformat(timespec="seconds"),
+            "to": email_list,
+            "bcc": bcc_list,
+            "cases": len(summaries),
+            "failed_cases": [s.case_name for s in failures],
+        }, indent=2), encoding="utf-8")
     
     return pdf_count
-
